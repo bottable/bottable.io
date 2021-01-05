@@ -22,5 +22,13 @@
       }
     }
   },
-  "projects": {}
+  "projects": {
+    "extension": {
+      "tags": ["extension", "frontend"]
+    },
+    "extension-e2e": {
+      "tags": [],
+      "implicitDependencies": ["extension"]
+    }
+  }
 }
