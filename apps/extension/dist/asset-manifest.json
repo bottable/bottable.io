@@ -1,0 +1,14 @@
+{
+  "background.js": "/static/js/background.js",
+  "background.js.map": "/static/js/background.js.map",
+  "content.js": "/static/js/content.js",
+  "content.js.map": "/static/js/content.js.map",
+  "options.js": "/static/js/options.js",
+  "options.js.map": "/static/js/options.js.map",
+  "popup.js": "/static/js/popup.js",
+  "popup.js.map": "/static/js/popup.js.map",
+  "index.html": "/index.html",
+  "logo192.png": "/logo192.png",
+  "manifest.json": "/manifest.json",
+  "options.html": "/options.html"
+}
