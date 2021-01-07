@@ -1,3 +1,3 @@
-console.log('Hello Background')
+console.log('Hello Background');
 
-export {}
+export {};

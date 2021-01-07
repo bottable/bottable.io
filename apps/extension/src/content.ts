@@ -1,3 +1,3 @@
-console.log('Hello Content')
+console.log('Hello Content');
 
-export {}
+export {};
