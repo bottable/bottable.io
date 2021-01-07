@@ -13,7 +13,12 @@
     "lib": ["es2017", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
-    "baseUrl": "."
+    "baseUrl": ".",
+    "paths": {
+      "@bottable/scraper": ["libs/scraper/src/index.ts"],
+      "@bottable.io/lib/shared/config": ["libs/lib/shared/config/src/index.ts"],
+      "@bottable.io/shared/config": ["libs/shared/config/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

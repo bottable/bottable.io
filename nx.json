@@ -29,6 +29,25 @@
     "extension-e2e": {
       "tags": [],
       "implicitDependencies": ["extension"]
+    },
+    "server": {
+      "tags": ["server", "backend"]
+    },
+    "scraper": {
+      "tags": ["backend", "scraper"]
+    },
+    "queue": {
+      "tags": ["queue", "backend"]
+    },
+    "web": {
+      "tags": ["web", "frontend"]
+    },
+    "web-e2e": {
+      "tags": [],
+      "implicitDependencies": ["web"]
+    },
+    "shared-config": {
+      "tags": ["shared"]
     }
   }
 }
