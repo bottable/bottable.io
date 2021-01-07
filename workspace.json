@@ -5,83 +5,7 @@
       "root": "apps/extension",
       "sourceRoot": "apps/extension/src",
       "projectType": "application",
-      "targets": {
-        "build": {
-          "executor": "@nrwl/web:build",
-          "outputs": [
-            "{options.outputPath}"
-          ],
-          "options": {
-            "outputPath": "dist/apps/extension",
-            "index": "apps/extension/src/index.html",
-            "main": "apps/extension/src/main.tsx",
-            "polyfills": "apps/extension/src/polyfills.ts",
-            "tsConfig": "apps/extension/tsconfig.app.json",
-            "assets": [
-              "apps/extension/src/favicon.ico",
-              "apps/extension/src/assets"
-            ],
-            "styles": [
-              "apps/extension/src/styles.scss"
-            ],
-            "scripts": [],
-            "webpackConfig": "@nrwl/react/plugins/webpack"
-          },
-          "configurations": {
-            "production": {
-              "fileReplacements": [
-                {
-                  "replace": "apps/extension/src/environments/environment.ts",
-                  "with": "apps/extension/src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "executor": "@nrwl/web:dev-server",
-          "options": {
-            "buildTarget": "extension:build"
-          },
-          "configurations": {
-            "production": {
-              "buildTarget": "extension:build:production"
-            }
-          }
-        },
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "apps/extension/**/*.{ts,tsx,js,jsx}"
-            ]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/apps/extension"
-          ],
-          "options": {
-            "jestConfig": "apps/extension/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      },
+      "schematics": {},
       "architect": {
         "serve": {
           "builder": "@nrwl/workspace:run-commands",
@@ -98,6 +22,22 @@
           ],
           "options": {
             "command": "node ../../node_modules/.bin/react-app-rewired build",
+            "cwd": "apps/extension"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/workspace:run-commands",
+          "outputs": [],
+          "options": {
+            "command": "node ../../node_modules/.bin/eslint src/**/*.tsx src/**/*.ts",
+            "cwd": "apps/extension"
+          }
+        },
+        "test": {
+          "builder": "@nrwl/workspace:run-commands",
+          "outputs": [],
+          "options": {
+            "command": "node ../../node_modules/.bin/react-app-rewired test --watchAll=false",
             "cwd": "apps/extension"
           }
         }

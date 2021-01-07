@@ -1,14 +1,19 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 
 const path = require('path');
-const { overrideDevServer } = require('customize-cra');
+const {
+  override,
+  overrideDevServer,
+  removeModuleScopePlugin,
+} = require('customize-cra');
 const paths = require('react-scripts/config/paths');
-const HtmlWebpackPlugin = require('react-scripts/node_modules/html-webpack-plugin');
-const ManifestPlugin = require('react-scripts/node_modules/webpack-manifest-plugin');
-const MiniCssExtractPlugin = require('react-scripts/node_modules/mini-css-extract-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ManifestPlugin = require('webpack-manifest-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const ExtensionReloader = require('webpack-extension-reloader');
 const TsConfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 
 // Utility function to replace/remove specific plugin in a webpack config
 function replacePlugin(plugins, nameMatcher, newPlugin) {
@@ -28,7 +33,7 @@ function replacePlugin(plugins, nameMatcher, newPlugin) {
 }
 
 // Function to override the CRA webpack config
-function override(config, env) {
+function customOverride(config, env) {
   // Replace single entry point in the config with multiple ones
   // Note: you may remove any property below except "popup" to exclude respective entry point from compilation
   config.entry = {
@@ -115,12 +120,14 @@ function override(config, env) {
     /GenerateSW/i.test(name)
   );
 
+  // Copy "public" content for extension development
   config.plugins.push(
     new CopyPlugin({
       patterns: [{ from: 'public', to: '' }],
     })
   );
 
+  // Reload extension when content script changes
   if (!isEnvProduction)
     config.plugins.push(
       new ExtensionReloader({
@@ -169,7 +176,7 @@ const devServerConfig = () => (config) => {
 
 // Export override function(s) via object
 module.exports = {
-  webpack: override,
+  webpack: override(customOverride, removeModuleScopePlugin),
   devServer: overrideDevServer(devServerConfig()),
   paths: (paths) => {
     // Rewrite dist folder to where Nx expects it to be.
