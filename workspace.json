@@ -90,6 +90,16 @@
             "command": "node ../../node_modules/.bin/concurrently \"node ../../node_modules/.bin/react-app-rewired start\"",
             "cwd": "apps/extension"
           }
+        },
+        "build": {
+          "builder": "@nrwl/workspace:run-commands",
+          "outputs": [
+            "dist/apps/extension"
+          ],
+          "options": {
+            "command": "node ../../node_modules/.bin/react-app-rewired build",
+            "cwd": "apps/extension"
+          }
         }
       }
     },

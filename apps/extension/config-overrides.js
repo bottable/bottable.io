@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 
+const path = require('path');
 const { overrideDevServer } = require('customize-cra');
 const paths = require('react-scripts/config/paths');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -9,6 +10,8 @@ const {
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const ExtensionReloader = require('webpack-extension-reloader');
+const TsConfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 
 // Utility function to replace/remove specific plugin in a webpack config
 function replacePlugin(plugins, nameMatcher, newPlugin) {
@@ -115,12 +118,14 @@ function override(config, env) {
     /GenerateSW/i.test(name)
   );
 
+  // Copy "public" content for extension development
   config.plugins.push(
     new CopyPlugin({
       patterns: [{ from: 'public', to: '' }],
     })
   );
 
+  // Reload extension when content script changes
   config.plugins.push(
     new ExtensionReloader({
       entries: {
@@ -131,6 +136,33 @@ function override(config, env) {
       },
     })
   );
+
+  // Remove guard against importing modules outside of `src`.
+  // Needed for workspace projects.
+  config.resolve.plugins = config.resolve.plugins.filter(
+    (plugin) => !(plugin instanceof ModuleScopePlugin)
+  );
+
+  // Add support for importing workspace projects.
+  config.resolve.plugins.push(
+    new TsConfigPathsPlugin({
+      configFile: path.resolve(__dirname, 'tsconfig.json'),
+      extensions: ['.ts', '.tsx', '.js', '.jsx'],
+      mainFields: ['module', 'main'],
+    })
+  );
+
+  // Replace include option for babel loader with exclude
+  // so babel will handle workspace projects as well.
+  config.module.rules.forEach((r) => {
+    if (r.oneOf) {
+      const babelLoader = r.oneOf.find(
+        (rr) => rr.loader.indexOf('babel-loader') !== -1
+      );
+      babelLoader.exclude = /node_modules/;
+      delete babelLoader.include;
+    }
+  });
 
   return config;
 }
