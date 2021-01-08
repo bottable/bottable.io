@@ -14,7 +14,7 @@ model User {
   lastName  String
   email     String  @unique
   password  String
-  confirmed Boolean
+  confirmed Boolean @default(false)
 
   trackers Tracker[]
 
@@ -26,6 +26,9 @@ model Tracker {
 
   userId Int?
   user   User? @relation(fields: [userId], references: [id])
+
+  Team   Team? @relation(fields: [teamId], references: [id])
+  teamId Int?
 
   selectors Selector[]
 
@@ -39,13 +42,10 @@ model Tracker {
   pinned          Boolean @default(false)
   updateFrequency Int
   url             String
-  Team            Team?   @relation(fields: [teamId], references: [id])
-  teamId          Int?
 }
 
 model Selector {
-  id       Int    @id @default(autoincrement())
-  location String
+  id Int @id @default(autoincrement())
 
   values Value[]
 
@@ -54,6 +54,8 @@ model Selector {
 
   alertTriggerId Int
   alertTrigger   AlertTrigger @relation(fields: [alertTriggerId], references: [id])
+
+  location String
 }
 
 model Value {
@@ -69,19 +71,21 @@ model Value {
 model AlertTrigger {
   id Int @id @default(autoincrement())
 
-  type    AlertTriggerTypes
-  payload String?
+  type AlertTriggerTypes @default(CHANGE)
 
   selectors Selector[]
+
+  payload String?
 }
 
 model Tag {
-  id    Int    @id @default(autoincrement())
-  name  String
-  color String
+  id Int @id @default(autoincrement())
 
   trackerId Int?
   tracker   Tracker? @relation(fields: [trackerId], references: [id])
+
+  name  String
+  color String
 }
 
 model Memberships {
@@ -93,14 +97,15 @@ model Memberships {
   teamId Int
   team   Team @relation(fields: [teamId], references: [id])
 
-  role RoleType
+  role RoleType @default(MEMBER)
 }
 
 model Team {
   id Int @id @default(autoincrement())
 
-  trackers    Tracker[]
-  Memberships Memberships[]
+  trackers Tracker[]
+
+  memberships Memberships[]
 }
 
 enum AlertTriggerTypes {
