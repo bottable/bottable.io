@@ -1,0 +1,124 @@
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://bottable:123123@localhost:5432/bottable-db?schema=public"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id Int @id @default(autoincrement())
+
+  firstName String
+  lastName  String
+  email     String  @unique
+  password  String
+  confirmed Boolean
+
+  trackers Tracker[]
+
+  memberships Memberships[]
+}
+
+model Tracker {
+  id Int @id @default(autoincrement())
+
+  userId Int?
+  user   User? @relation(fields: [userId], references: [id])
+
+  selectors Selector[]
+
+  notificationMethods NotificationMethods[]
+
+  tags Tag[]
+
+  description     String
+  name            String
+  notifyAnyway    Boolean @default(false)
+  pinned          Boolean @default(false)
+  updateFrequency Int
+  url             String
+  Team            Team?   @relation(fields: [teamId], references: [id])
+  teamId          Int?
+}
+
+model Selector {
+  id       Int    @id @default(autoincrement())
+  location String
+
+  values Value[]
+
+  trackerId Int
+  tracker   Tracker @relation(fields: [trackerId], references: [id])
+
+  alertTriggerId Int
+  alertTrigger   AlertTrigger @relation(fields: [alertTriggerId], references: [id])
+}
+
+model Value {
+  id Int @id @default(autoincrement())
+
+  selectorId Int
+  selector   Selector @relation(fields: [selectorId], references: [id])
+
+  timestamp DateTime
+  value     String
+}
+
+model AlertTrigger {
+  id Int @id @default(autoincrement())
+
+  type    AlertTriggerTypes
+  payload String?
+
+  selectors Selector[]
+}
+
+model Tag {
+  id    Int    @id @default(autoincrement())
+  name  String
+  color String
+
+  trackerId Int?
+  tracker   Tracker? @relation(fields: [trackerId], references: [id])
+}
+
+model Memberships {
+  id Int @id @default(autoincrement())
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+
+  teamId Int
+  team   Team @relation(fields: [teamId], references: [id])
+
+  role RoleType
+}
+
+model Team {
+  id Int @id @default(autoincrement())
+
+  trackers    Tracker[]
+  Memberships Memberships[]
+}
+
+enum AlertTriggerTypes {
+  CHANGE
+  INCREASE
+  DECREASE
+
+  GREATER_THAN
+  LESS_THAN
+  CONTAIN
+}
+
+enum NotificationMethods {
+  EMAIL
+  SMS
+}
+
+enum RoleType {
+  ADMIN
+  MEMBER
+}
