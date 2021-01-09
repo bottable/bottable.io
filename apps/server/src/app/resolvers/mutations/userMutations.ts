@@ -1,7 +1,14 @@
 import { Context } from '../../context';
 
+import { sendMail, createConfirmationUrl } from '../../utils';
+
+import { redis } from '../../redis';
+
+import { CONFIRM_USER_PREFIX, FORGET_PASSWORD_PREFIX } from '../../constants';
+
 import { hash, compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
+import { v4 } from 'uuid';
 
 const { APP_SECRET } = process.env;
 
@@ -21,17 +28,18 @@ const UserMutations = {
       },
     });
 
-    console.log(user, hashedPassword);
+    if (process.env.NODE_ENV !== 'development')
+      await sendMail(email, await createConfirmationUrl(user.id));
 
     return {
-      token: sign({ userId: user.id }, APP_SECRET),
+      token: sign({ userId: user.id }, APP_SECRET, { expiresIn: '7 days' }),
       user,
     };
   },
   async login(
     _parent: unknown,
     { input: { email, password } },
-    { prisma }: Context
+    { prisma, request }: Context
   ) {
     const user = await prisma.user.findUnique({
       where: {
@@ -49,10 +57,82 @@ const UserMutations = {
       throw new Error('Invalid password');
     }
 
+    request.session.userId = user.id;
+
     return {
       token: sign({ userId: user.id }, APP_SECRET),
       user,
     };
+  },
+  async confirm(_parent: unknown, { token }, { prisma, user }: Context) {
+    const userId = await redis.get(CONFIRM_USER_PREFIX + token);
+
+    if (!userId) {
+      return false;
+    }
+
+    await prisma.user.update({
+      where: {
+        id: Number(user.id),
+      },
+      data: {
+        confirmed: true,
+      },
+    });
+
+    await redis.del(token);
+
+    return true;
+  },
+  async changePassword(
+    _parent: unknown,
+    { password, token },
+    { prisma, request }: Context
+  ) {
+    const userId = await redis.get(FORGET_PASSWORD_PREFIX + token);
+
+    if (!userId) {
+      // bad token or expired token
+      return null;
+    }
+
+    const user = await prisma.user.update({
+      where: {
+        id: Number(userId),
+      },
+      data: {
+        password: await hash(password, 10),
+      },
+    });
+
+    await redis.del(FORGET_PASSWORD_PREFIX + token);
+
+    request.session.userId = userId;
+
+    return user;
+  },
+  async forgotPassword(_parent: unknown, { email }, { prisma }: Context) {
+    const user = await prisma.user.findUnique({ where: { email } });
+
+    if (!user) {
+      // don't want to indicate user DNE
+      return true;
+    }
+
+    const token = v4();
+    await redis.set(
+      FORGET_PASSWORD_PREFIX + token,
+      user.id,
+      'ex',
+      60 * 60 * 24
+    );
+
+    await sendMail(
+      email,
+      `http://localhost:3000/user/change-password/${token}`
+    );
+
+    return true;
   },
 };
 

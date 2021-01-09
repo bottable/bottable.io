@@ -6,8 +6,12 @@ type Query {
 }
 
 type Mutation {
+  # User Mutations
   register(input: RegisterInput!): AuthPayload!
   login(input: LoginInput!): AuthPayload!
+  confirm(token: String!): Boolean!
+  changePassword(token: String!, password: String!): User
+  forgotPassword(email: String!): Boolean!
 }
 
 type User {
