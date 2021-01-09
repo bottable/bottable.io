@@ -1,16 +1,5 @@
-import resolvers from './app/resolvers';
+import server from './app/server';
 
-import { ApolloServer } from 'apollo-server';
-
-import { readFileSync } from 'fs';
-import { join } from 'path';
-
-const server = new ApolloServer({
-  typeDefs: readFileSync(
-    join(__dirname, 'assets/schemas/schema.graphql'),
-    'utf8'
-  ),
-  resolvers,
+server.start(({ port }) => {
+  console.log(`🚀 Server ready at: http://localhost:${port}`);
 });
-
-server.listen().then(({ url }) => console.log(`Server is running on ${url}.`));
