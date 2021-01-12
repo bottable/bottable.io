@@ -29,11 +29,17 @@
   "dependencies": {
     "core-js": "^3.6.5",
     "document-register-element": "1.13.1",
+    "fiber-ui": "^1.0.7",
     "next": "10.0.1",
     "react": "17.0.1",
     "react-dom": "17.0.1",
+    "react-icons": "^4.1.0",
     "react-router-dom": "5.2.0",
-    "tslib": "^2.0.0"
+    "styled-components": "^5.2.1",
+    "styled-normalize": "^8.0.7",
+    "styled-system": "^5.1.5",
+    "tslib": "^2.0.0",
+    "typeface-work-sans": "^1.1.13"
   },
   "devDependencies": {
     "@babel/core": "7.9.6",

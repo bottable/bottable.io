@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from 'fiber-ui';
 
 import styles from './index.module.scss';
 
@@ -11,6 +12,7 @@ export function Index() {
   return (
     <div className={styles.page}>
       <h2>Resources &amp; Tools</h2>
+      <Button>Click Here!</Button>
       <p>Thank you for using and showing some ♥ for Nx.</p>
       <div className="flex github-star-container">
         <a

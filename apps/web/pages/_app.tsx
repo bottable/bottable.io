@@ -2,11 +2,14 @@ import React from 'react';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { ReactComponent as NxLogo } from '../public/nx-logo-white.svg';
+import { UIProvider } from 'fiber-ui';
 import './styles.css';
+
+require('typeface-work-sans');
 
 function CustomApp({ Component, pageProps }: AppProps) {
   return (
-    <>
+    <UIProvider>
       <Head>
         <title>Welcome to web!</title>
       </Head>
@@ -19,7 +22,7 @@ function CustomApp({ Component, pageProps }: AppProps) {
           <Component {...pageProps} />
         </main>
       </div>
-    </>
+    </UIProvider>
   );
 }
 
