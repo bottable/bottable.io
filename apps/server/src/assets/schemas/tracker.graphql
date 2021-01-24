@@ -1,0 +1,93 @@
+type Tracker {
+  id: ID!
+  user: User
+  team: Team
+  selectors: [Selector!]!
+  notificationMethods: [NotificationMethods!]!
+  tags: [Tag!]!
+  description: String!
+  name: String!
+  notifyAnyway: Boolean!
+  pinned: Boolean!
+  updateFrequency: Int!
+  url: String!
+}
+
+type Selector {
+  id: ID!
+  values: [Value!]!
+  tracker: Tracker!
+  alertTrigger: AlertTrigger!
+  location: String!
+}
+
+type Value {
+  id: ID!
+  selector: Selector!
+  timestamp: String
+  value: String
+}
+
+type AlertTrigger {
+  id: ID!
+  type: AlertTriggerTypes
+  selectors: [Selector!]!
+  payload: String
+}
+
+type Tag {
+  id: ID!
+  tracker: Tracker!
+  name: String!
+  color: String!
+}
+
+input TagInput {
+  name: String!
+  color: String!
+}
+
+input AlertTriggerInput {
+  type: AlertTriggerTypes!
+  payload: String
+}
+
+input SelectorInput {
+  category: SelectorCategoryType!
+  alertTrigger: AlertTriggerInput!
+  location: String!
+}
+
+input CreateTrackerInput {
+  teamId: ID
+  updateFrequency: Int!
+  description: String!
+  url: String!
+  name: String!
+  notifyAnyway: Boolean!
+  tags: [TagInput!]!
+  selectors: [SelectorInput!]!
+  notificationMethods: [NotificationMethods!]!
+}
+
+enum AlertTriggerTypes {
+  CHANGE
+  INCREASE
+  DECREASE
+  GREATER_THAN
+  LESS_THAN
+  CONTAIN
+}
+
+enum NotificationMethods {
+  EMAIL
+  SMS
+}
+
+enum SelectorCategoryType {
+  PRICE
+  NAME
+  DESCRIPTION
+  IMAGE
+  OTHER
+}

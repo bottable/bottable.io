@@ -31,7 +31,6 @@ const server = new GraphQLServer({
   typeDefs: join(__dirname, 'assets', 'schemas', 'schema.graphql'),
   context: createContext,
   resolvers,
-  // middlewares: [permissions],
 });
 
 server.express.use(sessionMiddleware);
