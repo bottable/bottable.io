@@ -11,11 +11,15 @@ export interface Context {
 }
 
 export async function createContext(ctx: Context) {
+  const userId = getUserId(ctx);
+
   return {
     ...ctx,
     prisma,
-    user: await prisma.user.findUnique({
-      where: { id: Number(getUserId(ctx)) },
-    }),
+    user: userId
+      ? await prisma.user.findUnique({
+          where: { id: Number(getUserId(ctx)) },
+        })
+      : null,
   };
 }
