@@ -1484,10 +1484,17 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@^7.1.2", "@babel/runtime@^7.10.2", "@babel/runtime@^7.10.3", "@babel/runtime@^7.10.5", "@babel/runtime@^7.11.2", "@babel/runtime@^7.12.1", "@babel/runtime@^7.12.5", "@babel/runtime@^7.5.5", "@babel/runtime@^7.7.2", "@babel/runtime@^7.8.4", "@babel/runtime@^7.9.2":
+"@babel/runtime@^7.1.2", "@babel/runtime@^7.10.2", "@babel/runtime@^7.10.3", "@babel/runtime@^7.10.5", "@babel/runtime@^7.11.2", "@babel/runtime@^7.12.1", "@babel/runtime@^7.12.5", "@babel/runtime@^7.5.5", "@babel/runtime@^7.7.2", "@babel/runtime@^7.8.4":
   version "7.12.5"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.12.5.tgz#410e7e487441e1b360c29be715d870d9b985882e"
   integrity sha512-plcc+hbExy3McchJCEQG3knOsuh3HH+Prx1P6cLIkET/0dLuQDEnrT+s27Axgc9bqfsmNUNHfscgMUdBpC9xfg==
+  dependencies:
+    regenerator-runtime "^0.13.4"
+
+"@babel/runtime@^7.9.2":
+  version "7.12.13"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.12.13.tgz#0a21452352b02542db0ffb928ac2d3ca7cb6d66d"
+  integrity sha512-8+3UMPBrjFa/6TtKi/7sehPKqfAm4g6K+YQjyyFOLUTxzOngcRZTlAVY8sc2CORJYqdHQY8gRPHmn+qo15rCBw==
   dependencies:
     regenerator-runtime "^0.13.4"
 
@@ -3089,6 +3096,11 @@
   integrity sha512-8l2gr2OQ969ypa7hFOeKqtFoY70XkHxISV0pAwmQ2nm6CSPb1brmTmqJCGGrekCo+pAZyWlNXr+Kvo6L/1wijA==
   dependencies:
     "@types/node" "*"
+
+"@types/resize-observer-browser@^0.1.5":
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/@types/resize-observer-browser/-/resize-observer-browser-0.1.5.tgz#36d897708172ac2380cd486da7a3daf1161c1e23"
+  integrity sha512-8k/67Z95Goa6Lznuykxkfhq9YU3l1Qe6LNZmwde1u7802a3x8v44oq0j91DICclxatTr0rNnhXx7+VTIetSrSQ==
 
 "@types/resolve@0.0.8":
   version "0.0.8"
@@ -7931,12 +7943,14 @@ fd-slicer@~1.1.0:
     pend "~1.2.0"
 
 fiber-ui@^1.0.7:
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/fiber-ui/-/fiber-ui-1.0.7.tgz#5835da2ad3a1221d212b56fde70fce295a546bae"
-  integrity sha512-oh2lOL7kG7UAU/vLml5GR6/ukZjW8nZ0lkI4qMJICvBjIcL/umF30zzZPeMfw7cdGjhMRORzzLX1oA43BbiG2w==
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/fiber-ui/-/fiber-ui-1.0.8.tgz#e05ad40c1df7660a13b70afd49a1a0349dc81c3a"
+  integrity sha512-KvybhRzNRQm+jrwf2upT1PL5212RMFAQDCXcEMoGlFmdwKpW8G74BNyS0f1jGdQ2SY5lfXcvc+uy2EpoUvPGuA==
   dependencies:
+    framer "^1.2.15"
     polished "^3.6.4"
     rc-util "^5.0.6"
+    react-resize-detector "^6.0.1-rc.3"
 
 figgy-pudding@^3.5.1:
   version "3.5.2"
@@ -8237,6 +8251,11 @@ fragment-cache@^0.2.1:
   integrity sha1-QpD60n8T6Jvn8zeZxrxaCr//DRk=
   dependencies:
     map-cache "^0.2.2"
+
+framer@^1.2.15:
+  version "1.2.20"
+  resolved "https://registry.yarnpkg.com/framer/-/framer-1.2.20.tgz#3ea5eff831275c966cf2983760f79ecccab3fa7a"
+  integrity sha512-soTRMEYnMTUaD2VV4WZxTCtixDvVal10mVEnVai0zBcLfjjnu6Taj01c2Lvm9AWOu9ZU414/0GTqKbUZZpxrWw==
 
 fresh@0.5.2:
   version "0.5.2"
@@ -11018,6 +11037,11 @@ lodash.clonedeep@^4.5.0:
   resolved "https://registry.yarnpkg.com/lodash.clonedeep/-/lodash.clonedeep-4.5.0.tgz#e23f3f9c4f8fbdde872529c1071857a086e5ccef"
   integrity sha1-4j8/nE+Pvd6HJSnBBxhXoIblzO8=
 
+lodash.debounce@^4.0.8:
+  version "4.0.8"
+  resolved "https://registry.yarnpkg.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
+  integrity sha1-gteb/zCmfEAF/9XiUVMArZyk168=
+
 lodash.defaults@^4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/lodash.defaults/-/lodash.defaults-4.2.0.tgz#d09178716ffea4dde9e5fb7b37f6f0802274580c"
@@ -11092,6 +11116,11 @@ lodash.templatesettings@^4.0.0:
   integrity sha512-stgLz+i3Aa9mZgnjr/O+v9ruKZsPsndy7qPZOchbqk2cnTU1ZaldKK+v7m54WoKIyxiuMZTKT2H81F8BeAc3ZQ==
   dependencies:
     lodash._reinterpolate "^3.0.0"
+
+lodash.throttle@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/lodash.throttle/-/lodash.throttle-4.1.1.tgz#c23e91b710242ac70c37f1e1cda9274cc39bf2f4"
+  integrity sha1-wj6RtxAkKscMN/HhzaknTMOb8vQ=
 
 lodash.uniq@^4.5.0:
   version "4.5.0"
@@ -14248,10 +14277,11 @@ raw-loader@3.1.0:
     schema-utils "^2.0.1"
 
 rc-util@^5.0.6:
-  version "5.6.5"
-  resolved "https://registry.yarnpkg.com/rc-util/-/rc-util-5.6.5.tgz#811c314cd64b773b10fed9794683f08ffa1a410f"
-  integrity sha512-WwgwI80qxs+LJkxERKLbjLF4LuBoyH1KSQVphF3P0JPFxrJkiXHPF6hbJy51oHceXmqh1wizVwdNGF1DsSDZmA==
+  version "5.8.0"
+  resolved "https://registry.yarnpkg.com/rc-util/-/rc-util-5.8.0.tgz#8058d6b3cd4c0a336360171f74d6c4d08d5065ac"
+  integrity sha512-x8UGbURS1/9mMyqNMsRdCq+nBLefjcubfS++d/P/oAKZ2b0X2Zo6TPPPS4nKyZIK8Xvo4DFx5zfwJ9hUm9CRYQ==
   dependencies:
+    "@babel/runtime" "^7.12.5"
     react-is "^16.12.0"
     shallowequal "^1.1.0"
 
@@ -14347,6 +14377,16 @@ react-refresh@0.8.3, react-refresh@^0.8.3:
   version "0.8.3"
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.8.3.tgz#721d4657672d400c5e3c75d063c4a85fb2d5d68f"
   integrity sha512-X8jZHc7nCMjaCqoU+V2I0cOhNW+QMBwSUkeXnTi8IPe6zaRWfn60ZzvFDZqWPfmSJfjub7dDW1SP0jaHWLu/hg==
+
+react-resize-detector@^6.0.1-rc.3:
+  version "6.3.3"
+  resolved "https://registry.yarnpkg.com/react-resize-detector/-/react-resize-detector-6.3.3.tgz#a5a68691f0e1674776d69592d9c17d18d2084ab6"
+  integrity sha512-2V0BZj8r39ogYFmTUaa5U+axy3MFPcfvIqEspNihiGxepwb+VwFX3pWEI6DgSRKfTbSyyXv6e8kG1wUFiX0WDg==
+  dependencies:
+    "@types/resize-observer-browser" "^0.1.5"
+    lodash.debounce "^4.0.8"
+    lodash.throttle "^4.1.1"
+    resize-observer-polyfill "^1.5.1"
 
 react-router-dom@5.2.0:
   version "5.2.0"
@@ -14860,6 +14900,11 @@ requires-port@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/requires-port/-/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
   integrity sha1-kl0mAdOaxIXgkc8NpcbmlNw9yv8=
+
+resize-observer-polyfill@^1.5.1:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/resize-observer-polyfill/-/resize-observer-polyfill-1.5.1.tgz#0e9020dd3d21024458d4ebd27e23e40269810464"
+  integrity sha512-LwZrotdHOo12nQuZlHEmtuXdqGoOD0OhaxopaNFxWzInpEgaLWoVuAMbTzixuosCx2nEG58ngzW3vxdWoxIgdg==
 
 resolve-cwd@^2.0.0:
   version "2.0.0"
