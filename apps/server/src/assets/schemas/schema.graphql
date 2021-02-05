@@ -1,8 +1,15 @@
+# import * from './user.graphql'
+# import * from './tracker.graphql'
+
 type Query {
   # User Queries
   me: User
   user(id: ID!): User
   users: [User!]!
+
+  # Tracker Queries
+  tracker(id: ID!): Tracker
+  trackers: [Tracker!]!
 }
 
 type Mutation {
@@ -10,110 +17,9 @@ type Mutation {
   register(input: RegisterInput!): AuthPayload!
   login(input: LoginInput!): AuthPayload!
   confirm(token: String!): Boolean!
-  changePassword(token: String!, password: String!): User
+  changePassword(token: String!, password: String!): User!
   forgotPassword(email: String!): Boolean!
-}
 
-type User {
-  id: ID!
-  firstName: String!
-  lastName: String!
-  email: String!
-  password: String!
-  confirmed: Boolean!
-  trackers: [Tracker!]!
-  memberships: [Membership!]!
-}
-
-type Team {
-  id: ID!
-  trackers: [Tracker!]!
-  memberships: [Membership!]!
-}
-
-type Tracker {
-  id: ID!
-  user: User
-  team: Team
-  selectors: [Selector!]!
-  notificationMethods: [NotificationMethods!]!
-  tags: [Tag!]!
-  description: String!
-  name: String!
-  notifyAnyway: Boolean!
-  pinned: Boolean!
-  updateFrequency: Int!
-  url: String!
-}
-
-type Selector {
-  id: ID!
-  values: [Value!]!
-  tracker: Tracker!
-  AlertTrigger: AlertTrigger!
-  location: String!
-}
-
-type Value {
-  id: ID!
-  selector: Selector!
-  timestamp: String
-  value: String
-}
-
-type AlertTrigger {
-  id: ID!
-  type: AlertTriggerTypes
-  selectors: [Selector!]!
-  payload: String!
-}
-
-type Tag {
-  id: ID!
-  tracker: Tracker!
-  name: String!
-  color: String!
-}
-
-type Membership {
-  id: ID!
-  user: User
-  team: Team
-  role: RoleType
-}
-
-type AuthPayload {
-  token: String!
-  user: User!
-}
-
-enum AlertTriggerTypes {
-  CHANGE
-  INCREASE
-  DECREASE
-  GREATER_THAN
-  LESS_THAN
-  CONTAIN
-}
-
-enum NotificationMethods {
-  EMAIL
-  SMS
-}
-
-enum RoleType {
-  ADMIN
-  MEMBER
-}
-
-input RegisterInput {
-  firstName: String!
-  lastName: String!
-  email: String!
-  password: String!
-}
-
-input LoginInput {
-  email: String!
-  password: String!
+  # Tracker Mutations
+  createTracker(input: CreateTrackerInput!): Tracker!
 }
