@@ -7942,9 +7942,9 @@ fd-slicer@~1.1.0:
     pend "~1.2.0"
 
 fiber-ui@^1.0.7:
-  version "1.0.9"
-  resolved "https://registry.yarnpkg.com/fiber-ui/-/fiber-ui-1.0.9.tgz#f3ddc3b7d27a230e519b33c16c3087fb3638999d"
-  integrity sha512-AH8UnliNJEofaP/26qCDZFQvbo8nACpfx14vxFArWljl8gQYhRbuw2pCHZU3qs2+1GN29/SOmp+Z9meT6k2lxA==
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/fiber-ui/-/fiber-ui-1.0.10.tgz#154ee88db6f23533f037bccedc31337cc16ea2da"
+  integrity sha512-Ex0mVlSiyAdYrVqCLmTUpn4q0jUJz3kXEjc9/KutiiYlkIzQ2KX4SzyC7Z7pEDZe0Tgeko60azSBwby3JVtFzA==
   dependencies:
     framer "^1.2.15"
     polished "^3.6.4"

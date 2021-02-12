@@ -9,17 +9,83 @@ import {
   Card,
   Tag,
 } from 'fiber-ui';
-import { MdWhatshot } from 'react-icons/md';
+import { MdWhatshot, MdPerson } from 'react-icons/md';
 import { FaLongArrowAltDown } from 'react-icons/fa';
-import { AiFillPushpin } from 'react-icons/ai';
+import { AiFillPushpin, AiFillPlusCircle } from 'react-icons/ai';
+import { HiDesktopComputer } from 'react-icons/hi';
 
 export function Index() {
-  const { Search } = Input;
-
   return (
     <Layout>
       <Layout.Sider>
-        <Heading>Bottable</Heading>
+        <div
+          style={{
+            width: 150,
+            background: 'white',
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            height: '100%',
+            padding: '50px 25px',
+          }}
+        >
+          <Space>
+            <img
+              src={'icon.png'}
+              style={{ height: 35, width: 35 }}
+              alt="Logo"
+            />
+            <Text strong style={{ fontSize: 20 }}>
+              Bottable
+            </Text>
+          </Space>
+
+          <Button
+            style={{
+              marginTop: 50,
+              justifyContent: 'start',
+              backgroundColor: '#333',
+            }}
+            endIcon={<AiFillPlusCircle />}
+            type="primary"
+            block
+          >
+            Add Tracker
+          </Button>
+          <Button
+            style={{ marginTop: 20, justifyContent: 'start' }}
+            type="text"
+            startIcon={<HiDesktopComputer />}
+            block
+          >
+            Dashboard
+          </Button>
+          <Button
+            style={{ marginTop: 20, justifyContent: 'start' }}
+            type="text"
+            startIcon={<MdPerson />}
+            block
+          >
+            Personal
+          </Button>
+          <Space style={{ position: 'fixed', bottom: 30, left: 25 }}>
+            <img
+              src={'icon.png'}
+              style={{ height: 35, width: 35 }}
+              alt="Logo"
+            />
+            <div>
+              <div>
+                <Text strong style={{ fontSize: 20 }}>
+                  Kevin Chen
+                </Text>
+              </div>
+              <div>
+                <Text style={{ color: '#a6a6a6' }}>Personal Plan</Text>
+              </div>
+            </div>
+          </Space>
+        </div>
       </Layout.Sider>
       <Layout>
         <Layout.Content
@@ -27,7 +93,10 @@ export function Index() {
         >
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <Heading>Hello Kevin,</Heading>
-            <Button type="primary" style={{ marginLeft: 'auto' }}>
+            <Button
+              type="primary"
+              style={{ marginLeft: 'auto', backgroundColor: '#333' }}
+            >
               See All Trackers
             </Button>
           </div>
@@ -39,11 +108,12 @@ export function Index() {
               width: '100%',
               boxShadow: '0px 1px 4px rgba(0, 0, 0, 0.2)',
               padding: '16px 20px',
+              borderRadius: 10,
             }}
             placeholder="Search for any tracker or category"
             bordered={false}
           />
-          <div>
+          <div style={{ marginTop: 20 }}>
             <Space size="sm">
               <MdWhatshot size={40} />
               <Heading size={2}>Hot</Heading>
@@ -92,7 +162,7 @@ export function Index() {
               </div>
             </Card>
           </div>
-          <div>
+          <div style={{ marginTop: 20 }}>
             <Space size="sm">
               <AiFillPushpin size={40} />
               <Heading size={2}>Pinned</Heading>
