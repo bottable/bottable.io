@@ -4450,7 +4450,7 @@ babel-plugin-named-asset-import@^0.3.7:
   resolved "https://registry.yarnpkg.com/babel-plugin-named-asset-import/-/babel-plugin-named-asset-import-0.3.7.tgz#156cd55d3f1228a5765774340937afc8398067dd"
   integrity sha512-squySRkf+6JGnvjoUtDEjSREJEBirnXi9NqP6rjSYsylxQxqBTz+pkmf395i9E2zsvmYUaI40BHo6SqZUdydlw==
 
-"babel-plugin-styled-components@>= 1":
+"babel-plugin-styled-components@>= 1", babel-plugin-styled-components@^1.12.0:
   version "1.12.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-styled-components/-/babel-plugin-styled-components-1.12.0.tgz#1dec1676512177de6b827211e9eda5a30db4f9b9"
   integrity sha512-FEiD7l5ZABdJPpLssKXjBUJMYqzbcNzBowfXDCdJhOpbhWiewapUaY+LZGT8R4Jg2TwOjGjG4RKeyrO5p9sBkA==
@@ -7942,9 +7942,9 @@ fd-slicer@~1.1.0:
     pend "~1.2.0"
 
 fiber-ui@^1.0.7:
-  version "1.0.10"
-  resolved "https://registry.yarnpkg.com/fiber-ui/-/fiber-ui-1.0.10.tgz#154ee88db6f23533f037bccedc31337cc16ea2da"
-  integrity sha512-Ex0mVlSiyAdYrVqCLmTUpn4q0jUJz3kXEjc9/KutiiYlkIzQ2KX4SzyC7Z7pEDZe0Tgeko60azSBwby3JVtFzA==
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/fiber-ui/-/fiber-ui-1.0.11.tgz#b9baca532ef798c341298b51463ff0910800d295"
+  integrity sha512-D4lS/DGJayXPU9MypFUrDxJXQTiNl+O2+TonVzowkaZabgbVg29TzhAaldD0KcdgQIZJtmc5u4B0zR1T034w5w==
   dependencies:
     framer "^1.2.15"
     polished "^3.6.4"
@@ -8252,9 +8252,9 @@ fragment-cache@^0.2.1:
     map-cache "^0.2.2"
 
 framer@^1.2.15:
-  version "1.2.21"
-  resolved "https://registry.yarnpkg.com/framer/-/framer-1.2.21.tgz#968b1b7d4158a8d0b57caabd703d1144f94deda0"
-  integrity sha512-InMtuwGGCV3b7hMV/2Y77YVzXbWElmhTN1ycJdOpfiqPcmt1hdHp4rYTBvi6dqZw6f2//+85mdY69nzcVpsj4w==
+  version "1.2.23"
+  resolved "https://registry.yarnpkg.com/framer/-/framer-1.2.23.tgz#055e6c7e4d567b892e6129c3e9c8742449d40a68"
+  integrity sha512-eebj22LpHPkK7267rUyjW+70rsfddWBgeWi+ubmWqbsmJXHfFtIqjp16sHXMM0jroAThD2KrsnAXD3oFuZZCnw==
 
 fresh@0.5.2:
   version "0.5.2"

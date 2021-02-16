@@ -1,3 +1,5 @@
+import { CardStack } from '../components';
+
 import React from 'react';
 import {
   Button,
@@ -87,7 +89,7 @@ export function Index() {
           </Space>
         </div>
       </Layout.Sider>
-      <Layout>
+      <Layout style={{ flex: '1 0 0px', width: 0 }}>
         <Layout.Content
           style={{ background: '#f7f7f7', padding: '30px 70px 90px 70px' }}
         >
@@ -123,44 +125,59 @@ export function Index() {
             <Text>Everything that changed</Text>
           </div>
           <div>
-            <Card
-              bordered={false}
-              width={350}
-              style={{
-                color: 'black',
-                boxShadow: '0px 1px 4px rgba(0, 0, 0, 0.2)',
-              }}
-            >
-              <div>
-                <Text strong>Amazon Nike React 4</Text>
-              </div>
-              <div style={{ marginBottom: 12 }}>
-                <Text strong style={{ color: '#929292' }}>
-                  Price
-                </Text>
-              </div>
-              <div
-                style={{
-                  background: '#eee',
-                  textAlign: 'center',
-                  padding: '10px 0px',
-                }}
-              >
-                <Text>5103</Text>
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <FaLongArrowAltDown />
-              </div>
-              <div
-                style={{
-                  background: '#eee',
-                  textAlign: 'center',
-                  padding: '10px 0px',
-                }}
-              >
-                <Text strong>4500</Text>
-              </div>
-            </Card>
+            <CardStack
+              type="hot"
+              data={[
+                {
+                  trackerName: 'Amazon Nike React 4',
+                  categoryName: 'Price',
+                  prevValue: 5103,
+                  newValue: 4500,
+                },
+                {
+                  trackerName: 'Tracker Name',
+                  categoryName: 'Category Name',
+                  prevValue: 'Past Value',
+                  newValue: 'New Value',
+                },
+                {
+                  trackerName: 'Tracker Name',
+                  categoryName: 'Category Name',
+                  prevValue: 'Past Value',
+                  newValue: 'New Value',
+                },
+                {
+                  trackerName: 'Tracker Name',
+                  categoryName: 'Category Name',
+                  prevValue: 'Past Value',
+                  newValue: 'New Value',
+                },
+                {
+                  trackerName: 'Tracker Name',
+                  categoryName: 'Category Name',
+                  prevValue: 'Past Value',
+                  newValue: 'New Value',
+                },
+                {
+                  trackerName: 'Tracker Name',
+                  categoryName: 'Category Name',
+                  prevValue: 'Past Value',
+                  newValue: 'New Value',
+                },
+                {
+                  trackerName: 'Tracker Name',
+                  categoryName: 'Category Name',
+                  prevValue: 'Past Value',
+                  newValue: 'New Value',
+                },
+                {
+                  trackerName: 'Tracker Name',
+                  categoryName: 'Category Name',
+                  prevValue: 'Past Value',
+                  newValue: 'New Value',
+                },
+              ]}
+            />
           </div>
           <div style={{ marginTop: 20 }}>
             <Space size="sm">
