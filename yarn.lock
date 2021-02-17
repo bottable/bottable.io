@@ -2447,11 +2447,6 @@
   dependencies:
     any-observable "^0.3.0"
 
-"@scarf/scarf@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@scarf/scarf/-/scarf-1.1.0.tgz#b84b4a91cd938a688d36245b7a7db6fbc476a499"
-  integrity sha512-b2iE8kjjzzUo2WZ0xuE2N77kfnTds7ClrDxcz3Atz7h2XrNVoAPUoT75i7CY0st5x++70V91Y+c6RpBX9MX7Jg==
-
 "@sinonjs/commons@^1.7.0":
   version "1.8.1"
   resolved "https://registry.yarnpkg.com/@sinonjs/commons/-/commons-1.8.1.tgz#e7df00f98a203324f6dc7cc606cad9d4a8ab2217"
@@ -7942,9 +7937,9 @@ fd-slicer@~1.1.0:
     pend "~1.2.0"
 
 fiber-ui@^1.0.7:
-  version "1.0.11"
-  resolved "https://registry.yarnpkg.com/fiber-ui/-/fiber-ui-1.0.11.tgz#b9baca532ef798c341298b51463ff0910800d295"
-  integrity sha512-D4lS/DGJayXPU9MypFUrDxJXQTiNl+O2+TonVzowkaZabgbVg29TzhAaldD0KcdgQIZJtmc5u4B0zR1T034w5w==
+  version "1.0.14"
+  resolved "https://registry.yarnpkg.com/fiber-ui/-/fiber-ui-1.0.14.tgz#57c1fdb01acaf50e5263b66d4e2ffcabbd4007a5"
+  integrity sha512-WGaOCJ/43iBGla0vRb7uzs4eCLE3/5VBoxtHwJ9jZdgzHbly3Lmh8sSJWoDkrrGnD247VaCHlH7aZq68CjzsWg==
   dependencies:
     framer "^1.2.15"
     polished "^3.6.4"
@@ -8252,9 +8247,9 @@ fragment-cache@^0.2.1:
     map-cache "^0.2.2"
 
 framer@^1.2.15:
-  version "1.2.23"
-  resolved "https://registry.yarnpkg.com/framer/-/framer-1.2.23.tgz#055e6c7e4d567b892e6129c3e9c8742449d40a68"
-  integrity sha512-eebj22LpHPkK7267rUyjW+70rsfddWBgeWi+ubmWqbsmJXHfFtIqjp16sHXMM0jroAThD2KrsnAXD3oFuZZCnw==
+  version "1.2.24"
+  resolved "https://registry.yarnpkg.com/framer/-/framer-1.2.24.tgz#501ab8ab60bbd039f2c49ffc1f7599a56bdde859"
+  integrity sha512-4UWcN/fKF6k8hdTnvqEmXAriaQ7iLh/bXxB+CrG57m8+aRvM0GK+27IlB1eGN9IPXlHadfxC9O4rW8XJUSZosg==
 
 fresh@0.5.2:
   version "0.5.2"
@@ -13073,12 +13068,11 @@ pnp-webpack-plugin@1.6.4:
     ts-pnp "^1.1.6"
 
 polished@^3.6.4:
-  version "3.7.0"
-  resolved "https://registry.yarnpkg.com/polished/-/polished-3.7.0.tgz#ece3368df30d33082bc8a957aa212d3f98119278"
-  integrity sha512-1tnvQ2wsxfR/DyPE2Xu9sRbnLAwXAarCWiZJ8Hfirw59bTigqjbzEWSAmzYizT6ocQW995V8n7RP48jq50DjJA==
+  version "3.7.1"
+  resolved "https://registry.yarnpkg.com/polished/-/polished-3.7.1.tgz#d1addc87ee16eb5b413c6165eda37600cccb9c11"
+  integrity sha512-/QgHrNGYwIA4mwxJ/7FSvalUJsm7KNfnXiScVSEG2Xa5qxDeBn4nmdjN2pW00mkM2Tts64ktc47U8F7Ed1BRAA==
   dependencies:
     "@babel/runtime" "^7.12.5"
-    "@scarf/scarf" "^1.1.0"
 
 portfinder@^1.0.25, portfinder@^1.0.26:
   version "1.0.28"
@@ -14379,9 +14373,9 @@ react-refresh@0.8.3, react-refresh@^0.8.3:
   integrity sha512-X8jZHc7nCMjaCqoU+V2I0cOhNW+QMBwSUkeXnTi8IPe6zaRWfn60ZzvFDZqWPfmSJfjub7dDW1SP0jaHWLu/hg==
 
 react-resize-detector@^6.0.1-rc.3:
-  version "6.5.0"
-  resolved "https://registry.yarnpkg.com/react-resize-detector/-/react-resize-detector-6.5.0.tgz#13654438de5c871374657c7e09268fef17a4e5e8"
-  integrity sha512-hkBFm1sTJ/+I/A1+yHPJ444kc4zb37FqjMmsQuRloS+mzLP8Bb4tslMUf7+14SrDgBkKtdwJX13TwAxeEkyl5w==
+  version "6.6.0"
+  resolved "https://registry.yarnpkg.com/react-resize-detector/-/react-resize-detector-6.6.0.tgz#8814f224bf917aa856714291a92e69b5682c89f6"
+  integrity sha512-+Wz9nI/vDGrp/yMPRshwehSvHycUwRSfRh1ElCO/NLqIlsSLUhS8pVUU+X+emjVSCB/hrRDAjK0OZ1eYLsmeyw==
   dependencies:
     "@types/resize-observer-browser" "^0.1.5"
     lodash.debounce "^4.0.8"
