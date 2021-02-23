@@ -217,7 +217,10 @@ const Tracker = () => {
               />
             </div>
           </Section>
-          <Button type="primary" style={{ marginTop: 34 }}>
+          <Button
+            type="primary"
+            style={{ marginTop: 34, backgroundColor: '#333' }}
+          >
             Save
           </Button>
         </Layout.Content>

@@ -47,6 +47,7 @@ const Settings: FC<SettingsProps> = ({
       <Card
         width={280}
         style={{ boxShadow: '0px 1px 4px rgba(0, 0, 0, 0.2)', color: 'black' }}
+        bordered={false}
       >
         <div>
           <Text strong style={{ fontSize: 20 }}>
@@ -73,19 +74,26 @@ const Settings: FC<SettingsProps> = ({
         {methodsNode}
       </Card>
       <Card
-        width={420}
+        width={408}
         style={{ boxShadow: '0px 1px 4px rgba(0, 0, 0, 0.2)', color: 'black' }}
+        bordered={false}
       >
-        <div style={{ marginBottom: 6 }}>
+        <div style={{ marginBottom: 12 }}>
           <Text strong style={{ fontSize: 20 }}>
             Frequency
           </Text>
         </div>
-        <div style={{ marginBottom: 12 }}>
-          <Radio.Group buttonStyle="solid">
-            <Radio.Button value="hourly">Hourly</Radio.Button>
-            <Radio.Button value="daily">Daily</Radio.Button>
-            <Radio.Button value="weekly">Weekly</Radio.Button>
+        <div style={{ marginBottom: 15 }}>
+          <Radio.Group buttonStyle="solid" size="lg">
+            <Radio.Button value="hourly" style={{ width: 88 }}>
+              Hourly
+            </Radio.Button>
+            <Radio.Button value="daily" style={{ width: 88 }}>
+              Daily
+            </Radio.Button>
+            <Radio.Button value="weekly" style={{ width: 88 }}>
+              Weekly
+            </Radio.Button>
           </Radio.Group>
         </div>
         <div
@@ -94,8 +102,8 @@ const Settings: FC<SettingsProps> = ({
             backgroundColor: '#e0e0e0',
             display: 'flex',
             alignItems: 'center',
-            padding: 20,
-            marginBottom: 12,
+            padding: '15px 20px',
+            marginBottom: 25,
           }}
         >
           <Slider
@@ -106,6 +114,7 @@ const Settings: FC<SettingsProps> = ({
             style={{ flex: 7 }}
             min={1}
             max={24}
+            size="lg"
           />
           <Text strong style={{ flex: 3 }} textAlign="right">
             {sliderValue} Hr
@@ -118,6 +127,7 @@ const Settings: FC<SettingsProps> = ({
       <Card
         width={320}
         style={{ boxShadow: '0px 1px 4px rgba(0, 0, 0, 0.2)', color: 'black' }}
+        bordered={false}
       >
         <div style={{ marginBottom: 6 }}>
           <Text strong style={{ fontSize: 20 }}>

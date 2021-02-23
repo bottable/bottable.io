@@ -1492,9 +1492,9 @@
     regenerator-runtime "^0.13.4"
 
 "@babel/runtime@^7.12.5":
-  version "7.13.4"
-  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.13.4.tgz#a2f5b5304d6f98a94053e6737321501347325617"
-  integrity sha512-pZLFG10nRL1hPF9J0/WdxjVuLEanSge8W3Ct+Kls9fNhD4vOi9bhuAU8DdNARvBE9GTg6UhQFcEIF1XhIZd9ZA==
+  version "7.13.6"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.13.6.tgz#86e0fad6cbb46a680e21c1aa4748717a058d345a"
+  integrity sha512-Y/DEVhSQ91u27rxq7D0EH/sewS6+x06p/MgO1VppbDHMzYXLZrAR5cFjCom78e9RUw1BQAq6qJg6fXc/ep7glA==
   dependencies:
     regenerator-runtime "^0.13.4"
 
@@ -7944,9 +7944,9 @@ fd-slicer@~1.1.0:
     pend "~1.2.0"
 
 fiber-ui@^1.0.7:
-  version "1.0.14"
-  resolved "https://registry.yarnpkg.com/fiber-ui/-/fiber-ui-1.0.14.tgz#57c1fdb01acaf50e5263b66d4e2ffcabbd4007a5"
-  integrity sha512-WGaOCJ/43iBGla0vRb7uzs4eCLE3/5VBoxtHwJ9jZdgzHbly3Lmh8sSJWoDkrrGnD247VaCHlH7aZq68CjzsWg==
+  version "1.0.17"
+  resolved "https://registry.yarnpkg.com/fiber-ui/-/fiber-ui-1.0.17.tgz#fc86e6a85d76627aba746cd20c19ab008e1c0db7"
+  integrity sha512-C7cZJyasuXDh02RTQkZWJ8ulsWeAAzvO7oqWkdnmHNVWS1Y4SW9nGl+10AaaHR9BWNDLwyxiGTI9wV0s/WiGYQ==
   dependencies:
     framer "^1.2.15"
     polished "^3.6.4"
