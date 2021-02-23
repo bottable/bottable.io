@@ -27,7 +27,6 @@ const Sider = () => {
       <Button
         style={{
           marginTop: 50,
-          justifyContent: 'start',
           backgroundColor: '#333',
         }}
         endIcon={<AiFillPlusCircle />}
@@ -37,18 +36,16 @@ const Sider = () => {
         Add Tracker
       </Button>
       <Button
-        style={{ marginTop: 20, justifyContent: 'start' }}
+        style={{ marginTop: 20, justifyContent: 'flex-start', width: '100%' }}
         type="text"
         startIcon={<HiDesktopComputer />}
-        block
       >
         Dashboard
       </Button>
       <Button
-        style={{ marginTop: 20, justifyContent: 'start' }}
+        style={{ marginTop: 20, justifyContent: 'flex-start', width: '100%' }}
         type="text"
         startIcon={<MdPerson />}
-        block
       >
         Personal
       </Button>

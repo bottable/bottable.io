@@ -63,7 +63,7 @@ const Settings: FC<SettingsProps> = ({
             overlay={menu}
             button={{
               endIcon: <MdExpandMore />,
-              style: { width: '100%', justifyContent: 'flex-start' },
+              block: true,
             }}
             style={{ width: '100%' }}
           >

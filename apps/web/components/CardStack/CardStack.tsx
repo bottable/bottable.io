@@ -236,7 +236,7 @@ const CardStack: FC<CardStackProps> = ({ type, data }) => {
                 <Dropdown.Button
                   overlay={menu}
                   button={{
-                    style: { width: '100%', justifyContent: 'flex-start' },
+                    block: true,
                     endIcon: <MdExpandMore />,
                   }}
                   style={{ width: '100%', position: 'static' }}
