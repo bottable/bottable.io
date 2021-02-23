@@ -2,8 +2,9 @@ import styled from 'styled-components';
 
 export const CardStackContainer = styled.div`
   display: flex;
+  box-sizing: content-box;
   width: 100%;
-  padding-bottom: 10px;
+  padding: 10px;
   overflow: auto;
   /* width */
   ::-webkit-scrollbar {
