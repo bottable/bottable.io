@@ -1,7 +1,7 @@
 import { CardStackContainer } from './styles';
 
 import React, { FC, useState, useRef, useEffect } from 'react';
-import { Card, Text, Tooltip, Dropdown, Menu } from 'fiber-ui';
+import { Card, Text, Tooltip, Dropdown, Menu, Input } from 'fiber-ui';
 import { FaLongArrowAltDown } from 'react-icons/fa';
 import { MdInfo, MdExpandMore } from 'react-icons/md';
 import { FiExternalLink } from 'react-icons/fi';
@@ -9,7 +9,7 @@ import { AiFillPushpin, AiOutlinePushpin } from 'react-icons/ai';
 
 type CardStackProps = {
   type: 'hot' | 'categories' | 'hot-tracker';
-  data: { [key: string]: string | number | boolean }[];
+  data: { [key: string]: string | number | boolean | undefined }[];
 };
 
 const formatMoney = (
@@ -245,17 +245,19 @@ const CardStack: FC<CardStackProps> = ({ type, data }) => {
                   {notify}
                 </Dropdown.Button>
               </div>
-              <div
-                style={{
-                  borderRadius: 4,
-                  border: '1px solid #e0e0e0',
-                  padding: '10px 16px',
-                  background: !payload ? '#e0e0e0' : null,
-                  minHeight: 22,
-                }}
-              >
-                {payload}
-              </div>
+              {payload !== undefined ? (
+                <Input value={payload} style={{ width: '100%' }} />
+              ) : (
+                <div
+                  style={{
+                    borderRadius: 4,
+                    border: '1px solid #e0e0e0',
+                    padding: '7px 16px',
+                    background: !payload ? '#e0e0e0' : null,
+                    minHeight: 22,
+                  }}
+                />
+              )}
             </Card>
           );
         }
