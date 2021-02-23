@@ -61,7 +61,11 @@ const Settings: FC<SettingsProps> = ({
         <div style={{ marginBottom: 12 }}>
           <Dropdown.Button
             overlay={menu}
-            button={{ endIcon: <MdExpandMore />, block: true }}
+            button={{
+              endIcon: <MdExpandMore />,
+              style: { width: '100%', justifyContent: 'flex-start' },
+            }}
+            style={{ width: '100%' }}
           >
             Add Action
           </Dropdown.Button>

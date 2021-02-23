@@ -22,7 +22,11 @@ const Tracker = () => {
       </Layout.Sider>
       <Layout style={{ flex: '1 0 0px', width: 0 }}>
         <Layout.Content
-          style={{ background: '#f7f7f7', padding: '30px 70px 90px 70px' }}
+          style={{
+            background: '#f7f7f7',
+            padding: '30px 70px 90px 70px',
+            overflow: 'hidden',
+          }}
         >
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <Heading style={{ margin: 0 }}>Amazon React 4</Heading>
@@ -30,7 +34,7 @@ const Tracker = () => {
             <Button
               type="primary"
               startIcon={<FiExternalLink />}
-              style={{ marginLeft: 'auto' }}
+              style={{ marginLeft: 'auto', backgroundColor: '#333' }}
             >
               Open Tracker
             </Button>

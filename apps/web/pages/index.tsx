@@ -17,7 +17,10 @@ const Index = () => {
         >
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <Heading style={{ margin: 0 }}>Hello Kevin,</Heading>
-            <Button type="primary" style={{ marginLeft: 'auto' }}>
+            <Button
+              type="primary"
+              style={{ marginLeft: 'auto', backgroundColor: '#333' }}
+            >
               See All Trackers
             </Button>
           </div>

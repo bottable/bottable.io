@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const CardStackContainer = styled.div`
   display: flex;
-  box-sizing: content-box;
+  box-sizing: border-box;
   width: 100%;
   padding: 10px;
   overflow: auto;

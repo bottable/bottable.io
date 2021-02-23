@@ -1,9 +1,9 @@
 import { CardStackContainer } from './styles';
 
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useRef, useEffect } from 'react';
 import { Card, Text, Tooltip, Dropdown, Menu } from 'fiber-ui';
 import { FaLongArrowAltDown } from 'react-icons/fa';
-import { MdInfo } from 'react-icons/md';
+import { MdInfo, MdExpandMore } from 'react-icons/md';
 import { FiExternalLink } from 'react-icons/fi';
 import { AiFillPushpin, AiOutlinePushpin } from 'react-icons/ai';
 
@@ -47,6 +47,17 @@ const formatMoney = (
 
 const CardStack: FC<CardStackProps> = ({ type, data }) => {
   const [focus, setFocus] = useState<number | undefined>(undefined);
+  const [scroll, setScroll] = useState<number>(0);
+
+  const sliderRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (sliderRef.current) {
+      sliderRef.current.addEventListener('scroll', () => {
+        setScroll(sliderRef.current.scrollLeft);
+      });
+    }
+  }, [sliderRef]);
 
   const getDefaultProps = (idx: number) => {
     let boxShadow: string;
@@ -67,7 +78,7 @@ const CardStack: FC<CardStackProps> = ({ type, data }) => {
         marginLeft: idx !== 0 ? -40 : 0,
         zIndex: idx === focus ? 10000 : idx,
         flex: '0 0 auto',
-        boxSizing: 'content-box',
+        marginRight: idx === data.length - 1 ? 10 : 0,
       },
       onMouseEnter: () => {
         setFocus(idx);
@@ -222,12 +233,17 @@ const CardStack: FC<CardStackProps> = ({ type, data }) => {
                 <Text>{value}</Text>
               </div>
               <div style={{ marginBottom: 12 }}>
-                <Dropdown.Input
+                <Dropdown.Button
                   overlay={menu}
-                  input={{ value: notify, style: { width: '100%' } }}
+                  button={{
+                    style: { width: '100%', justifyContent: 'flex-start' },
+                    endIcon: <MdExpandMore />,
+                  }}
                   style={{ width: '100%', position: 'static' }}
-                  dropdownStyle={{ top: 'auto' }}
-                />
+                  dropdownStyle={{ top: 'auto', marginLeft: -scroll }}
+                >
+                  {notify}
+                </Dropdown.Button>
               </div>
               <div
                 style={{
@@ -250,6 +266,7 @@ const CardStack: FC<CardStackProps> = ({ type, data }) => {
   return (
     <CardStackContainer
       style={{ overflow: type === 'hot-tracker' ? 'visible' : null }}
+      ref={sliderRef}
     >
       {cardsNode}
     </CardStackContainer>

@@ -28,6 +28,7 @@ const Sider = () => {
         style={{
           marginTop: 50,
           justifyContent: 'start',
+          backgroundColor: '#333',
         }}
         endIcon={<AiFillPlusCircle />}
         type="primary"
