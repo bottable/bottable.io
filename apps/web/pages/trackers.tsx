@@ -27,6 +27,7 @@ const Trackers = () => {
                 {
                   title: 'Tracker Name',
                   dataIndex: 'trackerName',
+                  render: (text) => <Text>{text}</Text>,
                 },
                 {
                   title: 'Category',
