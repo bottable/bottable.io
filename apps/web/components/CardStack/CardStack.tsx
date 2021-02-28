@@ -70,6 +70,7 @@ const CardStack: FC<CardStackProps> = ({ type, data }) => {
     if (idx === focus) boxShadow = '0px 0px 10px 4px rgba(0, 0, 0, 0.3)';
 
     return {
+      key: idx,
       bordered: false,
       width: 350,
       style: {

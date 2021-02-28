@@ -1,16 +1,18 @@
 {
   "manifest_version": 2,
-  "name": "Extension Name",
-  "version": "0.1",
-  "description": "Some Description",
+  "name": "Bottable",
+  "version": "1.0",
+  "description": "We monitor the web, so you don't have to.",
   "permissions": [],
   "background": {
     "scripts": ["static/js/background.js"]
   },
-  "content_scripts": [{
-    "js": [ "static/js/content.js" ],
-    "matches": ["<all_urls>"]
-  }],
+  "content_scripts": [
+    {
+      "js": ["static/js/content.js"],
+      "matches": ["<all_urls>"]
+    }
+  ],
   "icons": {
     "192": "logo192.png"
   },

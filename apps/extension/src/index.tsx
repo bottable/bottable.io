@@ -1,10 +1,16 @@
+import App from './views/Popup/App';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './views/Popup/App';
+import { UIProvider } from 'fiber-ui';
+
+require('typeface-work-sans');
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <UIProvider>
+      <App />
+    </UIProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

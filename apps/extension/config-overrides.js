@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-
-const path = require('path');
 const { overrideDevServer } = require('customize-cra');
 const paths = require('react-scripts/config/paths');
 const HtmlWebpackPlugin = require('react-scripts/node_modules/html-webpack-plugin');
@@ -9,6 +7,8 @@ const MiniCssExtractPlugin = require('react-scripts/node_modules/mini-css-extrac
 const CopyPlugin = require('copy-webpack-plugin');
 const ExtensionReloader = require('webpack-extension-reloader');
 const TsConfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+
+const path = require('path');
 
 // Utility function to replace/remove specific plugin in a webpack config
 function replacePlugin(plugins, nameMatcher, newPlugin) {
