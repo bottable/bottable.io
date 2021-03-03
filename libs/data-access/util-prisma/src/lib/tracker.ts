@@ -1,11 +1,20 @@
-import { Selector, Tracker as _Tracker } from '@prisma/client';
+import { Selector, Tracker } from '@prisma/client';
 
-export type Tracker = _Tracker & {
+export type TrackerWithSelector = Tracker & {
   selectors: Selector[];
+};
+
+export type ScraperData = {
+  tracker: Tracker;
+  selectors: Selector[];
+};
+
+export type TaskData = {
+  type: 'Sync' | 'Ping';
 };
 
 /**
  * @info translate tracker to queue job ID
  */
-export const getTrackerKey = (tracker: Tracker): string =>
+export const getTrackerKey = (tracker: TrackerWithSelector): string =>
   `${tracker.name}-${tracker.id}`;

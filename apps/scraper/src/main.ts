@@ -7,12 +7,12 @@ const main = async () => {
 
   factory.setScraperWorker(scraper, { concurrency: 50 });
 
-  factory.subScraperWorker((jobId, type, data) => {
-    console.log(`🦑  [SCRAPER UPDATE] - ${type}`);
-    console.log(jobId);
-    console.log(type);
-    console.log(data);
-  });
+  // factory.subScraperWorker((jobId, type, data) => {
+  //   console.log(`🦑  [SCRAPER UPDATE] - ${type}`);
+  //   console.log(jobId);
+  //   console.log(type);
+  //   console.log(data);
+  // });
 };
 
 main();

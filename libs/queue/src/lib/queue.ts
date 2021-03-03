@@ -3,7 +3,12 @@
 import { QueueOptions, Job, Queue as BullQueue, JobsOptions } from 'bullmq';
 import { PrismaClient } from '@prisma/client';
 
-import { Tracker, getTrackerKey } from '@bottable.io/data-access/util-prisma';
+import {
+  TrackerWithSelector,
+  TaskData,
+  ScraperData,
+  getTrackerKey,
+} from '@bottable.io/data-access/util-prisma';
 
 type ReapeatableJob = {
   key: string;
@@ -17,7 +22,7 @@ type ReapeatableJob = {
 
 type ReapeatableJobOptions = {
   name: string;
-  data: any;
+  data: ScraperData | TaskData;
   opts?: JobsOptions;
 };
 
@@ -103,14 +108,17 @@ export class Queue extends BullQueue {
   }
 
   /**
-   * @info safely schedule a job for trackers
+   * @info safely schedule a repeatable job for trackers
    * @argument Tracker
    * @returns Promise<Job>
    */
-  async scheduleTracker(tracker: Tracker): Promise<Job> {
+  async scheduleTracker(tracker: TrackerWithSelector): Promise<Job> {
     const repeatableTrackeroptions: ReapeatableJobOptions = {
       name: getTrackerKey(tracker),
-      data: tracker.selectors,
+      data: {
+        tracker: tracker,
+        selectors: tracker.selectors,
+      },
       opts: {
         jobId: getTrackerKey(tracker),
         repeat: {

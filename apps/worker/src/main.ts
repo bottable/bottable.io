@@ -9,12 +9,12 @@ const main = async () => {
 
   const task = factory.getTaskProduer();
 
-  factory.subTaskWorker((jobId, type, data) => {
-    console.log(`🧘‍ [TASK WORKER UPDATE] - ${type}`);
-    console.log(jobId);
-    console.log(type);
-    console.log(data);
-  });
+  // factory.subTaskWorker((jobId, type, data) => {
+  //   console.log(`🧘‍ [TASK WORKER UPDATE] - ${type}`);
+  //   console.log(jobId);
+  //   console.log(type);
+  //   console.log(data);
+  // });
 
   await task.schedule({
     name: 'pingTask',
