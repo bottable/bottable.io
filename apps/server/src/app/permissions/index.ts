@@ -1,6 +1,6 @@
 import { getUserId } from '../utils';
 
-import { shield, rule, allow, deny } from 'graphql-shield';
+import { shield, rule, deny } from 'graphql-shield';
 
 const rules = {
   isAuthenticated: rule({ cache: 'contextual' })((parent, args, context) => {

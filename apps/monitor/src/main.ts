@@ -8,9 +8,10 @@ const app = express();
 
 const factory = new QueueFactory();
 
+// FIXME: wait for bullmq types to update
 setQueues([
-  new BullMQAdapter(factory.getScraperProduer()),
-  new BullMQAdapter(factory.getTaskProduer()),
+  new BullMQAdapter(factory.getScraperProduer(), { readOnlyMode: false }),
+  new BullMQAdapter(factory.getTaskProduer(), { readOnlyMode: false }),
 ]);
 
 app.use('/admin/queues', router);

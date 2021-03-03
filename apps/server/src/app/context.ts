@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { getUserId } from './utils';
 
 import { PrismaClient } from '@prisma/client';
