@@ -37,10 +37,10 @@ model Tracker {
   tags Tag[]
 
   description     String
-  name            String
+  name            String  @default("New Tracker")
   notifyAnyway    Boolean @default(false)
   pinned          Boolean @default(false)
-  updateFrequency Int
+  updateFrequency String  @default("0 5 29 2 *")
   url             String
 }
 

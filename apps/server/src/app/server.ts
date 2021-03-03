@@ -1,7 +1,7 @@
 import { createContext } from './context';
 import resolvers from './resolvers';
-import { redis } from './redis';
 
+import { getRedis } from '@bottable.io/data-access/util-redis';
 import session from 'express-session';
 import connectRedis from 'connect-redis';
 import { GraphQLServer } from 'graphql-yoga';
@@ -14,7 +14,7 @@ const RedisStore = connectRedis(session);
 
 const sessionMiddleware = session({
   store: new RedisStore({
-    client: redis,
+    client: getRedis(),
   }),
   name: 'qid',
   secret: process.env.APP_SECRET,

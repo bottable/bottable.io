@@ -11,7 +11,7 @@ const UserQueries = {
       },
     });
   },
-  users(_parent: unknown, _args: unknown, { prisma }: Context) {
+  async users(_parent: unknown, _args: unknown, { prisma }: Context) {
     return prisma.user.findMany();
   },
 };

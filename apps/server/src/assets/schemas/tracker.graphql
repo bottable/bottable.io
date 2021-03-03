@@ -9,7 +9,7 @@ type Tracker {
   name: String!
   notifyAnyway: Boolean!
   pinned: Boolean!
-  updateFrequency: Int!
+  updateFrequency: String!
   url: String!
 }
 
@@ -60,7 +60,7 @@ input SelectorInput {
 
 input CreateTrackerInput {
   teamId: ID
-  updateFrequency: Int!
+  updateFrequency: String!
   description: String!
   url: String!
   name: String!

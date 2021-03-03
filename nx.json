@@ -33,11 +33,8 @@
     "server": {
       "tags": ["server", "backend"]
     },
-    "scraper": {
-      "tags": ["backend", "scraper"]
-    },
     "queue": {
-      "tags": ["queue", "backend"]
+      "tags": []
     },
     "web": {
       "tags": ["web", "frontend"]
@@ -48,6 +45,21 @@
     },
     "shared-config": {
       "tags": ["shared"]
+    },
+    "scraper": {
+      "tags": []
+    },
+    "worker": {
+      "tags": []
+    },
+    "monitor": {
+      "tags": []
+    },
+    "data-access-util-prisma": {
+      "tags": []
+    },
+    "data-access-util-redis": {
+      "tags": []
     }
   }
 }

@@ -17,7 +17,14 @@
     "paths": {
       "@bottable/scraper": ["libs/scraper/src/index.ts"],
       "@bottable.io/lib/shared/config": ["libs/lib/shared/config/src/index.ts"],
-      "@bottable.io/shared/config": ["libs/shared/config/src/index.ts"]
+      "@bottable.io/shared/config": ["libs/shared/config/src/index.ts"],
+      "@bottable.io/data-access/util-prisma": [
+        "libs/data-access/util-prisma/src/index.ts"
+      ],
+      "@bottable.io/data-access/util-redis": [
+        "libs/data-access/util-redis/src/index.ts"
+      ],
+      "@bottable.io/queue": ["libs/queue/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

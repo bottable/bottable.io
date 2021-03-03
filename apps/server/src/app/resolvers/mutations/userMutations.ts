@@ -2,15 +2,16 @@ import { Context } from '../../context';
 
 import { sendMail, createConfirmationUrl } from '../../utils';
 
-import { redis } from '../../redis';
-
 import { CONFIRM_USER_PREFIX, FORGET_PASSWORD_PREFIX } from '../../constants';
+
+import { getRedis } from '@bottable.io/data-access/util-redis';
 
 import { hash, compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 import { v4 } from 'uuid';
 
 const { APP_SECRET } = process.env;
+const redis = getRedis();
 
 const UserMutations = {
   async register(

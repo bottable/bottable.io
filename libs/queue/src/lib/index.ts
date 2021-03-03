@@ -1,0 +1,1 @@
+export { QueueFactory } from './factory';
