@@ -50,6 +50,7 @@ export const MetadataStep: FC<MetadataProps> = ({ handleNext, ...props }) => {
             onChange={handleNameChange}
             value={name}
             bordered={false}
+            style={{ width: '100%' }}
           />
         </InputWrapper>
         <InputWrapper>
@@ -60,6 +61,7 @@ export const MetadataStep: FC<MetadataProps> = ({ handleNext, ...props }) => {
               console.log(values);
             }}
             bordered={false}
+            style={{ width: '100%' }}
           />
         </InputWrapper>
         <PrevNextButtons handleNext={handleNext} />

@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { Menu, Dropdown, Collapse } from 'fiber-ui';
-import { MdClear } from 'react-icons/md';
+import { Menu, Dropdown, Button, Paragraph, Card } from 'fiber-ui';
+import { MdClear, MdExpandMore } from 'react-icons/md';
 import styled from 'styled-components';
-import { Button, Paragraph } from 'fiber-ui';
 
 const NotifMethodsWrapper = styled.div`
   display: flex;
@@ -26,7 +25,7 @@ const NotifMethodText = styled(Paragraph)`
   flex: 1;
   font-size: 12px;
   text-align: left;
-  margin-bottom: 0;
+  margin-bottom: 0px;
 `;
 
 export const NotifyMethods = () => {
@@ -70,28 +69,42 @@ export const NotifyMethods = () => {
   );
 
   return (
-    <Collapse>
-      <Collapse.Panel
-        header={
-          <Dropdown overlay={menu}>
-            <Paragraph>Notify me through</Paragraph>
-          </Dropdown>
-        }
+    <Card width={260} bordered={false} style={{ marginBottom: 16 }}>
+      <div style={{ marginBottom: 8 }}>
+        <Paragraph style={{ fontSize: 12, color: '#6B6B6B' }}>
+          Notify me through
+        </Paragraph>
+      </div>
+      <Dropdown.Button
+        style={{
+          width: '100%',
+          position: 'static',
+          fontSize: 14,
+          marginBottom: 5,
+        }}
+        dropdownStyle={{ top: 'auto' }}
+        overlay={menu}
+        button={{
+          block: true,
+          endIcon: <MdExpandMore />,
+        }}
       >
-        <NotifMethodsWrapper>
-          {notifMethods.map((method, i) => (
-            <NotifMethodWrapper key={method + i}>
-              <Button
-                onClick={() => handleDelete(i)}
-                shape="circle"
-                type="text"
-                icon={<MdClear />}
-              />
-              <NotifMethodText>{method}</NotifMethodText>
-            </NotifMethodWrapper>
-          ))}
-        </NotifMethodsWrapper>
-      </Collapse.Panel>
-    </Collapse>
+        Add Action
+      </Dropdown.Button>
+      <NotifMethodsWrapper>
+        {notifMethods.map((method, i) => (
+          <NotifMethodWrapper key={method + i}>
+            <Button
+              onClick={() => handleDelete(i)}
+              shape="circle"
+              type="text"
+              icon={<MdClear />}
+              style={{ marginRight: 10 }}
+            />
+            <NotifMethodText>{method}</NotifMethodText>
+          </NotifMethodWrapper>
+        ))}
+      </NotifMethodsWrapper>
+    </Card>
   );
 };

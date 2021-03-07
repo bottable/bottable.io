@@ -1,9 +1,8 @@
 import { InputWrapper } from './InputWrapper';
-import { StyledCard } from './StyledCard';
 
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Checkbox, Paragraph, Radio, Text, Slider } from 'fiber-ui';
+import { Checkbox, Paragraph, Radio, Text, Slider, Card } from 'fiber-ui';
 import { MdInfo } from 'react-icons/md';
 
 const FrequencySliderWrapper = styled.div`
@@ -11,8 +10,9 @@ const FrequencySliderWrapper = styled.div`
   align-items: center;
   background: #e0e0e0;
   margin-top: 10px;
-  padding: 0 15px;
+  padding: 5px 15px;
   border-radius: 4px;
+  color: #000;
 `;
 
 const NotifyAnywayWrapper = styled.section`
@@ -66,7 +66,7 @@ export const FrequencySettings = () => {
   };
 
   return (
-    <StyledCard>
+    <Card width={260} bordered={false}>
       <InputWrapper>
         <Paragraph>
           Set Frequency
@@ -74,10 +74,10 @@ export const FrequencySettings = () => {
             style={{
               marginBottom: '5px',
               fontSize: 10,
+              color: '#000',
             }}
           />
         </Paragraph>
-        {/* @ts-ignore */}
         <Radio.Group
           defaultValue="hourly"
           onChange={(e: any) => {
@@ -87,11 +87,8 @@ export const FrequencySettings = () => {
           }}
           buttonStyle="solid"
         >
-          {/* @ts-ignore */}
           <Radio.Button value="hourly">Hourly</Radio.Button>
-          {/* @ts-ignore */}
           <Radio.Button value="daily">Daily</Radio.Button>
-          {/* @ts-ignore */}
           <Radio.Button value="weekly">Weekly</Radio.Button>
         </Radio.Group>
       </InputWrapper>
@@ -117,6 +114,6 @@ export const FrequencySettings = () => {
           Notify me even if the condition isn&#x27;t met
         </Checkbox>
       </NotifyAnywayWrapper>
-    </StyledCard>
+    </Card>
   );
 };

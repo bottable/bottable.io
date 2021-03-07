@@ -1,10 +1,8 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-import { StyledCard } from './StyledCard';
 import { TextPreview } from './TextPreview';
 
 import React, { FC, useState } from 'react';
 import { Collapse, Menu, Dropdown } from 'fiber-ui';
-import { MdDelete } from 'react-icons/md';
+import { MdDelete, MdExpandMore } from 'react-icons/md';
 import { Paragraph } from 'fiber-ui';
 
 type AlertTrigger = 'has changed' | 'has increased' | 'has decreased';
@@ -61,35 +59,39 @@ export const SelectionCard: FC<SelectionCardProps> = ({ preview }) => {
   );
 
   return (
-    <StyledCard>
-      <Collapse>
-        <Collapse.Panel
-          header={
-            <Dropdown.Input
-              overlay={categoryMenu}
-              description="Select an option or create one"
-              input={{
-                value: category,
-                onChange: (event: any) => setCategory(event.target.value),
-              }}
-            />
-          }
-          extra={<MdDelete />}
-          key="1"
+    <Collapse style={{ width: 260, backgroundColor: '#fff' }}>
+      <Collapse.Panel
+        header={
+          <Dropdown.Input
+            overlay={categoryMenu}
+            description="Select an option or create one"
+            input={{
+              value: category,
+              onChange: (event: any) => setCategory(event.target.value),
+              style: { width: '100%' },
+            }}
+          />
+        }
+        extra={<MdDelete />}
+        key="1"
+      >
+        <Paragraph style={{ fontSize: 12, margin: '8px 0' }}>
+          Notify me when the selected value
+        </Paragraph>
+        <TextPreview>{preview}</TextPreview>
+        <Dropdown.Button
+          onChange={handleAlertTriggerSelect}
+          style={{ width: '100%', position: 'static', fontSize: 14 }}
+          dropdownStyle={{ top: 'auto' }}
+          overlay={alertTriggerMenu}
+          button={{
+            block: true,
+            endIcon: <MdExpandMore />,
+          }}
         >
-          <Paragraph style={{ fontSize: 12, margin: '8px 0' }}>
-            Notify me when the selected value
-          </Paragraph>
-          <TextPreview>{preview}</TextPreview>
-          <Dropdown.Button
-            onChange={handleAlertTriggerSelect}
-            style={{ fontSize: 14 }}
-            overlay={alertTriggerMenu}
-          >
-            {alertTrigger}
-          </Dropdown.Button>
-        </Collapse.Panel>
-      </Collapse>
-    </StyledCard>
+          {alertTrigger}
+        </Dropdown.Button>
+      </Collapse.Panel>
+    </Collapse>
   );
 };

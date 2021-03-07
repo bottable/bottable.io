@@ -8141,7 +8141,7 @@ fd-slicer@~1.1.0:
   dependencies:
     pend "~1.2.0"
 
-fiber-ui@^1.0.7:
+fiber-ui@^1.0.18:
   version "1.0.18"
   resolved "https://registry.yarnpkg.com/fiber-ui/-/fiber-ui-1.0.18.tgz#701f42aa16a78cbc3704a9890cd969c05097fa6b"
   integrity sha512-JL/RCahvNqDkFIz/zm3o9eX8PEPlMhFfhxV1DLpHuLim3iAuc0yDywKIvlg9OYyLgK5rLfTcPCcGzrvLKcLZyA==
@@ -8458,9 +8458,9 @@ framer-motion@^3.10.0:
     "@emotion/is-prop-valid" "^0.8.2"
 
 framer@^1.2.15:
-  version "1.2.25"
-  resolved "https://registry.yarnpkg.com/framer/-/framer-1.2.25.tgz#f785b9711e4198bbbf397875cb031a3512df2a3b"
-  integrity sha512-1Nbi4VErK7l5rN5r188u2TtAMN5YqS7Kq2fJ0CLKcrd47d92TgjDuszjYv0NpCGKdQ5U2g+TGg6q8Pw7BeXjkw==
+  version "1.2.26"
+  resolved "https://registry.yarnpkg.com/framer/-/framer-1.2.26.tgz#935bd0f1cceded17e7f49d7a72fa93bd7eca64dc"
+  integrity sha512-Ke4ECQ6O4G5rE4yz8VRFOjZni/fgOghJttakARC9kPD+ntGzDhT9+BSYl9DCVbGBdKDqS0ivH5EiVMzrBKHsXQ==
 
 framesync@5.2.0:
   version "5.2.0"

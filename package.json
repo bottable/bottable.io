@@ -41,7 +41,7 @@
     "document-register-element": "1.13.1",
     "express": "4.17.1",
     "express-session": "^1.17.1",
-    "fiber-ui": "^1.0.7",
+    "fiber-ui": "^1.0.18",
     "framer-motion": "^3.10.0",
     "get-port": "^5.1.1",
     "graphql-request": "^3.4.0",
