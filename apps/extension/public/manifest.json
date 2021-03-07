@@ -3,7 +3,7 @@
   "name": "Bottable",
   "version": "1.0",
   "description": "We monitor the web, so you don't have to.",
-  "permissions": [],
+  "permissions": ["storage", "identity"],
   "background": {
     "scripts": ["static/js/background.js"]
   },

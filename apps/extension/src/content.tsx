@@ -150,8 +150,10 @@ const Main: FC<MainProps> = ({ toggle }) => {
                 >
                   <UIProvider>
                     <StyleSheetManager target={head}>
-                      <GlobalStyle />
-                      <App />
+                      <React.Fragment>
+                        <GlobalStyle />
+                        <App />
+                      </React.Fragment>
                     </StyleSheetManager>
                   </UIProvider>
                 </OuterAppContext.Provider>

@@ -5,6 +5,8 @@ import * as config from '../../config';
 import React, { FC } from 'react';
 import { MemoryRouter, Route, Switch } from 'react-router-dom';
 
+require('typeface-work-sans');
+
 const App: FC = () => {
   return (
     <MemoryRouter>
