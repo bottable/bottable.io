@@ -148,14 +148,12 @@ const Main: FC<MainProps> = ({ toggle }) => {
                     outerDocument: document,
                   }}
                 >
-                  <UIProvider>
-                    <StyleSheetManager target={head}>
-                      <React.Fragment>
-                        <GlobalStyle />
-                        <App />
-                      </React.Fragment>
-                    </StyleSheetManager>
-                  </UIProvider>
+                  <StyleSheetManager target={head}>
+                    <UIProvider>
+                      <GlobalStyle />
+                      <App />
+                    </UIProvider>
+                  </StyleSheetManager>
                 </OuterAppContext.Provider>
               );
             }}
@@ -181,7 +179,7 @@ document.body.appendChild(app);
 document.body.style.transition = 'margin .2s ease';
 ReactDOM.render(<Main toggle={toggle} />, app);
 
-// app.style.display = 'none'
+app.style.display = 'none';
 
 chrome.runtime.onMessage.addListener(function (request) {
   if (request.message === 'clicked_browser_action') {

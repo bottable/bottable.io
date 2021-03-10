@@ -91,13 +91,15 @@ export const PageSelection: FC = () => {
           </Paragraph>
         </EmptySelectionWrapper>
       ) : (
-        selections.map(({ id, preview }) => (
-          <SelectionCard
-            id={id}
-            key={id}
-            preview={preview}
-            onDelete={handleDelete}
-          />
+        selections.map(({ id, preview }, idx) => (
+          <div style={{ margin: idx !== selections.length - 1 ? 20 : 0 }}>
+            <SelectionCard
+              id={id}
+              key={id}
+              preview={preview}
+              onDelete={handleDelete}
+            />
+          </div>
         ))
       )}
     </PageSelectionWrapper>

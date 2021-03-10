@@ -3,7 +3,7 @@ import { TextPreview } from './TextPreview';
 import React, { FC, useState } from 'react';
 import { Collapse, Menu, Dropdown } from 'fiber-ui';
 import { MdDelete, MdExpandMore } from 'react-icons/md';
-import { Paragraph } from 'fiber-ui';
+import { Paragraph, Text } from 'fiber-ui';
 
 type AlertTrigger = 'has changed' | 'has increased' | 'has decreased';
 
@@ -64,12 +64,18 @@ export const SelectionCard: FC<SelectionCardProps> = ({ preview }) => {
         header={
           <Dropdown.Input
             overlay={categoryMenu}
-            description="Select an option or create one"
+            description={
+              <Text style={{ fontSize: 12 }}>
+                Select an option or create one
+              </Text>
+            }
             input={{
               value: category,
               onChange: (event: any) => setCategory(event.target.value),
               style: { width: '100%' },
             }}
+            dropdownStyle={{ fontWeight: 400, top: 'auto' }}
+            style={{ position: 'static' }}
           />
         }
         extra={<MdDelete />}

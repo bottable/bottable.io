@@ -87,9 +87,15 @@ export const FrequencySettings = () => {
           }}
           buttonStyle="solid"
         >
-          <Radio.Button value="hourly">Hourly</Radio.Button>
-          <Radio.Button value="daily">Daily</Radio.Button>
-          <Radio.Button value="weekly">Weekly</Radio.Button>
+          <Radio.Button value="hourly" style={{ width: 76 }}>
+            Hourly
+          </Radio.Button>
+          <Radio.Button value="daily" style={{ width: 76 }}>
+            Daily
+          </Radio.Button>
+          <Radio.Button value="weekly" style={{ width: 76 }}>
+            Weekly
+          </Radio.Button>
         </Radio.Group>
       </InputWrapper>
       <FrequencySliderWrapper>
@@ -107,7 +113,7 @@ export const FrequencySettings = () => {
       </FrequencySliderWrapper>
       <NotifyAnywayWrapper>
         <Checkbox
-          style={{ fontSize: 12 }}
+          style={{ fontSize: 11 }}
           checked={notifyAnyways}
           onChange={handleNotifyCheck}
         >
