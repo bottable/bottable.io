@@ -1,4 +1,5 @@
 import { TextPreview } from './TextPreview';
+import { CategoryInput } from './CategoryInput';
 
 import React, { FC, useState } from 'react';
 import { Collapse, Menu, Dropdown } from 'fiber-ui';
@@ -14,7 +15,7 @@ type SelectionCardProps = {
 };
 
 export const SelectionCard: FC<SelectionCardProps> = ({ preview }) => {
-  const [category, setCategory] = useState('Category');
+  const [category, setCategory] = useState<string>('Category');
   const [alertTrigger, setAlertTrigger] = useState<AlertTrigger>('has changed');
 
   const handleAlertTriggerSelect = (
@@ -23,14 +24,6 @@ export const SelectionCard: FC<SelectionCardProps> = ({ preview }) => {
     const value = event.target.value as AlertTrigger;
     setAlertTrigger(value);
   };
-
-  const categoryMenu = (
-    <Menu>
-      <Menu.Item>Category 1</Menu.Item>
-      <Menu.Item>Category 2</Menu.Item>
-      <Menu.Item>Category 3</Menu.Item>
-    </Menu>
-  );
 
   const alertTriggerMenu = (
     <Menu>
@@ -61,25 +54,10 @@ export const SelectionCard: FC<SelectionCardProps> = ({ preview }) => {
   return (
     <Collapse style={{ width: 260, backgroundColor: '#fff' }}>
       <Collapse.Panel
-        header={
-          <Dropdown.Input
-            overlay={categoryMenu}
-            description={
-              <Text style={{ fontSize: 12 }}>
-                Select an option or create one
-              </Text>
-            }
-            input={{
-              value: category,
-              onChange: (event: any) => setCategory(event.target.value),
-              style: { width: '100%' },
-            }}
-            dropdownStyle={{ fontWeight: 400, top: 'auto' }}
-            style={{ position: 'static' }}
-          />
-        }
+        header={<CategoryInput category={category} setCategory={setCategory} />}
         extra={<MdDelete />}
         key="1"
+        headerStyle={{ position: 'static' }}
       >
         <Paragraph style={{ fontSize: 12, margin: '8px 0' }}>
           Notify me when the selected value
