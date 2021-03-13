@@ -483,6 +483,48 @@
           }
         }
       }
+    },
+    "api-wrapper-util-slack": {
+      "root": "libs/api-wrapper/util-slack",
+      "sourceRoot": "libs/api-wrapper/util-slack/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/api-wrapper/util-slack/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/api-wrapper/util-slack"],
+          "options": {
+            "jestConfig": "libs/api-wrapper/util-slack/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "api-wrapper-util-mail": {
+      "root": "libs/api-wrapper/util-mail",
+      "sourceRoot": "libs/api-wrapper/util-mail/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/api-wrapper/util-mail/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/api-wrapper/util-mail"],
+          "options": {
+            "jestConfig": "libs/api-wrapper/util-mail/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {

@@ -14,3 +14,5 @@ export const BCLIENT = 'bclient';
 
 export const CLIENT = 'client';
 export const PRODUCER = 'producer';
+
+export type QueueEventsType = typeof COMPLETED | typeof STALLED | typeof FAILED;

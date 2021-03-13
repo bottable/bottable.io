@@ -28,6 +28,8 @@
     "monitor": { "tags": [] },
     "data-access-util-prisma": { "tags": [] },
     "data-access-util-redis": { "tags": [] },
-    "processor": { "tags": [] }
+    "processor": { "tags": [] },
+    "api-wrapper-util-slack": { "tags": [] },
+    "api-wrapper-util-mail": { "tags": [] }
   }
 }
