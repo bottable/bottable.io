@@ -10,8 +10,9 @@ const factory = new QueueFactory();
 
 // FIXME: wait for bullmq types to update
 setQueues([
-  new BullMQAdapter(factory.getScraperProduer(), { readOnlyMode: false }),
-  new BullMQAdapter(factory.getTaskProduer(), { readOnlyMode: false }),
+  new BullMQAdapter(factory.getScraperProducer(), { readOnlyMode: false }),
+  new BullMQAdapter(factory.getTaskProducer(), { readOnlyMode: false }),
+  new BullMQAdapter(factory.getProcessorProducer(), { readOnlyMode: false }),
 ]);
 
 app.use('/admin/queues', router);

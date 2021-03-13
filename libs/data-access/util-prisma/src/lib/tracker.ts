@@ -16,5 +16,5 @@ export type TaskData = {
 /**
  * @info translate tracker to queue job ID
  */
-export const getTrackerKey = (tracker: TrackerWithSelector): string =>
+export const getTrackerKey = (tracker: TrackerWithSelector | Tracker): string =>
   `${tracker.name}-${tracker.id}`;

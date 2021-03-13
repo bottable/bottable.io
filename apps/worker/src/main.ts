@@ -7,7 +7,7 @@ const main = async () => {
 
   factory.setTaskWorker(background, { concurrency: 50 });
 
-  const task = factory.getTaskProduer();
+  const task = factory.getTaskProducer();
 
   // factory.subTaskWorker((jobId, type, data) => {
   //   console.log(`🧘‍ [TASK WORKER UPDATE] - ${type}`);

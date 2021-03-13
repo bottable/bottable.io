@@ -33,6 +33,8 @@
   "dependencies": {
     "@apollo/client": "^3.3.12",
     "@prisma/client": "^2.15.0",
+    "@slack/events-api": "^3.0.0",
+    "@slack/web-api": "^6.1.0",
     "bcryptjs": "^2.4.3",
     "bull-board": "^1.4.1",
     "bullmq": "^1.14.7",

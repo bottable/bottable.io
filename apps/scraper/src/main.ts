@@ -1,4 +1,4 @@
-import { scraper } from './app/scraper';
+import { scraper } from './app';
 
 import { QueueFactory } from '@bottable.io/queue';
 
@@ -7,12 +7,13 @@ const main = async () => {
 
   factory.setScraperWorker(scraper, { concurrency: 50 });
 
-  // factory.subScraperWorker((jobId, type, data) => {
-  //   console.log(`🦑  [SCRAPER UPDATE] - ${type}`);
-  //   console.log(jobId);
-  //   console.log(type);
-  //   console.log(data);
-  // });
+  // TODO on failure add a notify job to background worker
+  factory.subScraperWorker((jobId, type, data) => {
+    console.log(`🦑  [SCRAPER UPDATE] - ${type}`);
+    console.log(jobId);
+    console.log(type);
+    console.log(data);
+  });
 };
 
 main();
