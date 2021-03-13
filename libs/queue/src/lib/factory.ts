@@ -1,6 +1,6 @@
 import { Queue } from './queue';
 
-import { SCRAPER, TASK, RESULT, COMPLETED, STALLED, FAILED } from '../types';
+import { SCRAPER, TASK, PROCESSOR, COMPLETED, STALLED, FAILED } from '../types';
 
 import { PrismaClient } from '@prisma/client';
 
@@ -35,10 +35,10 @@ export class QueueFactory {
   taskQueueEvents: QueueEvents = null;
   taskQueueScheduler: QueueScheduler = null;
 
-  result: Queue = null;
-  resultWorker: Worker = null;
-  resultQueueEvents: QueueEvents = null;
-  resultQueueScheduler: QueueScheduler = null;
+  processor: Queue = null;
+  processorWorker: Worker = null;
+  processorQueueEvents: QueueEvents = null;
+  processorQueueScheduler: QueueScheduler = null;
 
   test: Queue = null;
   customQueues: { [key: string]: Queue } = {};
@@ -66,7 +66,7 @@ export class QueueFactory {
     );
   };
 
-  getScraperProduer = () => {
+  getScraperProducer = () => {
     if (this.scraper == null)
       this.scraper = this.createQueue(`${SCRAPER}-${QUEUE}`);
 
@@ -92,7 +92,7 @@ export class QueueFactory {
     this.registerQueueEvents(this.scraperQueueEvents, callback);
   };
 
-  getTaskProduer = () => {
+  getTaskProducer = () => {
     if (this.task == null) this.task = this.createQueue(`${TASK}-${QUEUE}`);
 
     if (this.taskQueueScheduler == null)
@@ -159,29 +159,32 @@ export class QueueFactory {
     return this.customQueues[prefix];
   };
 
-  getResultProduer = () => {
-    if (this.result == null) this.result = this.createQueue(`${TASK}-${QUEUE}`);
+  getProcessorProducer = () => {
+    if (this.processor == null)
+      this.processor = this.createQueue(`${PROCESSOR}-${QUEUE}`);
 
-    if (this.resultQueueScheduler == null)
-      this.resultQueueScheduler = new QueueScheduler(`${RESULT}-${QUEUE}`);
+    if (this.processorQueueScheduler == null)
+      this.processorQueueScheduler = new QueueScheduler(
+        `${PROCESSOR}-${QUEUE}`
+      );
 
-    return this.result;
+    return this.processor;
   };
 
-  setResultWorker = (handler: Processor, opt?: WorkerOptions) => {
-    if (this.resultWorker == null)
-      this.resultWorker = new Worker(`${RESULT}-${QUEUE}`, handler, opt);
-    return this.resultWorker;
+  setProcessorWorker = (handler: Processor, opt?: WorkerOptions) => {
+    if (this.processorWorker == null)
+      this.processorWorker = new Worker(`${PROCESSOR}-${QUEUE}`, handler, opt);
+    return this.processorWorker;
   };
 
-  subResultWorker = (
+  subProcessorWorker = (
     callback: (id: string, type: string, data?: QueueListnerEvent) => void
   ) => {
-    if (this.resultQueueEvents == null) {
-      this.resultQueueEvents = new QueueEvents(`${RESULT}-${QUEUE}`);
+    if (this.processorQueueEvents == null) {
+      this.processorQueueEvents = new QueueEvents(`${PROCESSOR}-${QUEUE}`);
     }
 
-    this.registerQueueEvents(this.resultQueueEvents, callback);
+    this.registerQueueEvents(this.processorQueueEvents, callback);
   };
 
   shutdown = async () => {

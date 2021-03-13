@@ -1,14 +1,9 @@
 {
   "npmScope": "bottable.io",
-  "affected": {
-    "defaultBase": "master"
-  },
+  "affected": { "defaultBase": "master" },
   "implicitDependencies": {
     "workspace.json": "*",
-    "package.json": {
-      "dependencies": "*",
-      "devDependencies": "*"
-    },
+    "package.json": { "dependencies": "*", "devDependencies": "*" },
     "tsconfig.base.json": "*",
     "tslint.json": "*",
     ".eslintrc.json": "*",
@@ -17,49 +12,22 @@
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/workspace/tasks-runners/default",
-      "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"]
-      }
+      "options": { "cacheableOperations": ["build", "lint", "test", "e2e"] }
     }
   },
   "projects": {
-    "extension": {
-      "tags": ["extension", "frontend"]
-    },
-    "extension-e2e": {
-      "tags": [],
-      "implicitDependencies": ["extension"]
-    },
-    "server": {
-      "tags": ["server", "backend"]
-    },
-    "queue": {
-      "tags": []
-    },
-    "web": {
-      "tags": ["web", "frontend"]
-    },
-    "web-e2e": {
-      "tags": [],
-      "implicitDependencies": ["web"]
-    },
-    "shared-config": {
-      "tags": ["shared"]
-    },
-    "scraper": {
-      "tags": []
-    },
-    "worker": {
-      "tags": []
-    },
-    "monitor": {
-      "tags": []
-    },
-    "data-access-util-prisma": {
-      "tags": []
-    },
-    "data-access-util-redis": {
-      "tags": []
-    }
+    "extension": { "tags": ["extension", "frontend"] },
+    "extension-e2e": { "tags": [], "implicitDependencies": ["extension"] },
+    "server": { "tags": ["server", "backend"] },
+    "queue": { "tags": [] },
+    "web": { "tags": ["web", "frontend"] },
+    "web-e2e": { "tags": [], "implicitDependencies": ["web"] },
+    "shared-config": { "tags": ["shared"] },
+    "scraper": { "tags": [] },
+    "worker": { "tags": [] },
+    "monitor": { "tags": [] },
+    "data-access-util-prisma": { "tags": [] },
+    "data-access-util-redis": { "tags": [] },
+    "processor": { "tags": [] }
   }
 }

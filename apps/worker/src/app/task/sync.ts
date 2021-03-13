@@ -5,7 +5,7 @@ import { Processor } from 'bullmq';
 export class Sync extends Task {
   process: Processor = async (job) => {
     console.log('syncing...', job.name);
-    const queue = await Task.factory.getScraperProduer();
+    const queue = await Task.factory.getScraperProducer();
     try {
       const syncOutput = await queue.syncRepeatableJobs();
       console.log('syncing done', syncOutput);

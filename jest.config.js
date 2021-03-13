@@ -13,5 +13,6 @@ module.exports = {
     '<rootDir>/libs/data-access/util-prisma',
     '<rootDir>/libs/data-access/util-redis',
     '<rootDir>/libs/queue',
+    '<rootDir>/apps/processor',
   ],
 };

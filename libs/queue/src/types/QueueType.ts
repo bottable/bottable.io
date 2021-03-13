@@ -1,6 +1,6 @@
 export const TASK = 'task';
 export const SCRAPER = 'scraper';
-export const RESULT = 'result';
+export const PROCESSOR = 'processor';
 export const WORKER = 'worker';
 
 export const COMPLETED = 'completed';
