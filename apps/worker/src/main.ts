@@ -1,4 +1,4 @@
-import { background } from './app/task/background';
+import { background } from './app/background';
 
 import { QueueFactory } from '@bottable.io/queue';
 
@@ -31,7 +31,7 @@ const main = async () => {
     opts: {
       jobId: 'syncTask',
       repeat: {
-        every: 20000,
+        every: 100000,
       },
     },
   });

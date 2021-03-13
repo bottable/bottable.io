@@ -14,5 +14,7 @@ module.exports = {
     '<rootDir>/libs/data-access/util-redis',
     '<rootDir>/libs/queue',
     '<rootDir>/apps/processor',
+    '<rootDir>/libs/api-wrapper/util-slack',
+    '<rootDir>/libs/api-wrapper/util-mail',
   ],
 };

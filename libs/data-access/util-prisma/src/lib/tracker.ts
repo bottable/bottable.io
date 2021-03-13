@@ -9,6 +9,8 @@ export type ScraperData = {
   selectors: Selector[];
 };
 
+export type ScraperSelectorValues = { selector: Selector; values: string[] };
+
 export type TaskData = {
   type: 'Sync' | 'Ping';
 };

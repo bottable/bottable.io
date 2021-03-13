@@ -24,7 +24,13 @@
       "@bottable.io/data-access/util-redis": [
         "libs/data-access/util-redis/src/index.ts"
       ],
-      "@bottable.io/queue": ["libs/queue/src/index.ts"]
+      "@bottable.io/queue": ["libs/queue/src/index.ts"],
+      "@bottable.io/api-wrapper/util-slack": [
+        "libs/api-wrapper/util-slack/src/index.ts"
+      ],
+      "@bottable.io/api-wrapper/util-mail": [
+        "libs/api-wrapper/util-mail/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

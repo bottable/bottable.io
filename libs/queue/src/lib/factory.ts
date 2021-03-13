@@ -1,6 +1,14 @@
 import { Queue } from './queue';
 
-import { SCRAPER, TASK, PROCESSOR, COMPLETED, STALLED, FAILED } from '../types';
+import {
+  SCRAPER,
+  TASK,
+  PROCESSOR,
+  COMPLETED,
+  STALLED,
+  FAILED,
+  QueueEventsType,
+} from '../types';
 
 import { PrismaClient } from '@prisma/client';
 
@@ -10,13 +18,24 @@ import {
   WorkerOptions,
   QueueEvents,
   QueueScheduler,
+  JobsOptions,
 } from 'bullmq';
 import { options } from '@bottable.io/data-access/util-redis';
+import {
+  ScraperData,
+  ScraperSelectorValues,
+} from '@bottable.io/data-access/util-prisma';
 const { QUEUE } = process.env;
+
+export type QueueListnerEventData = {
+  opts: JobsOptions;
+  scraperData: ScraperData;
+  values: ScraperSelectorValues[];
+};
 
 export type QueueListnerEvent = {
   jobId: string;
-  data: string;
+  data: QueueListnerEventData | string;
   failedReason?: string;
   returnvalue?: string;
   prev?: string;
@@ -83,7 +102,11 @@ export class QueueFactory {
   };
 
   subScraperWorker = (
-    callback: (id: string, type: string, data?: QueueListnerEvent) => void
+    callback: (
+      id: string,
+      type: QueueEventsType,
+      data?: QueueListnerEvent
+    ) => void
   ) => {
     if (this.scraperQueueEvents == null) {
       this.scraperQueueEvents = new QueueEvents(`${SCRAPER}-${QUEUE}`);
@@ -109,7 +132,11 @@ export class QueueFactory {
 
   registerQueueEvents = (
     queueEvent: QueueEvents,
-    callback: (id: string, type: string, data?: QueueListnerEvent) => void
+    callback: (
+      id: string,
+      type: QueueEventsType,
+      data?: QueueListnerEvent
+    ) => void
   ) => {
     queueEvent.on(COMPLETED, (listnerEvent: QueueListnerEvent, id) => {
       if (listnerEvent.returnvalue) {
@@ -139,7 +166,11 @@ export class QueueFactory {
   };
 
   subTaskWorker = (
-    callback: (id: string, type: string, data?: QueueListnerEvent) => void
+    callback: (
+      id: string,
+      type: QueueEventsType,
+      data?: QueueListnerEvent
+    ) => void
   ) => {
     if (this.taskQueueEvents == null) {
       this.taskQueueEvents = new QueueEvents(`${TASK}-${QUEUE}`);
@@ -178,7 +209,11 @@ export class QueueFactory {
   };
 
   subProcessorWorker = (
-    callback: (id: string, type: string, data?: QueueListnerEvent) => void
+    callback: (
+      id: string,
+      type: QueueEventsType,
+      data?: QueueListnerEvent
+    ) => void
   ) => {
     if (this.processorQueueEvents == null) {
       this.processorQueueEvents = new QueueEvents(`${PROCESSOR}-${QUEUE}`);
