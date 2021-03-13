@@ -8,7 +8,7 @@ module.exports = {
     '<rootDir>/libs/lib/shared/config',
     '<rootDir>/libs/shared/config',
     '<rootDir>/apps/scraper',
-    '<rootDir>/apps/worker',
+    '<rootDir>/apps/task',
     '<rootDir>/apps/monitor',
     '<rootDir>/libs/data-access/util-prisma',
     '<rootDir>/libs/data-access/util-redis',
@@ -16,5 +16,6 @@ module.exports = {
     '<rootDir>/apps/processor',
     '<rootDir>/libs/api-wrapper/util-slack',
     '<rootDir>/libs/api-wrapper/util-mail',
+    '<rootDir>/apps/subscriber',
   ],
 };
