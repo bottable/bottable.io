@@ -4,12 +4,12 @@ export type TrackerWithSelector = Tracker & {
   selectors: Selector[];
 };
 
-export type ScraperData = {
+export type ScraperJobRequestData = {
   tracker: Tracker;
   selectors: Selector[];
 };
 
-export type ScraperSelectorValues = { selector: Selector; values: string[] };
+export type ScraperJobResponseValue = { selector: Selector; values: string[] };
 
 export type TaskData = {
   type: 'Sync' | 'Ping';

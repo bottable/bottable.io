@@ -1,2 +1,2 @@
 export * from './QueueType';
-export * from './WorkerType';
+export * from './TaskType';

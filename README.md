@@ -1,5 +1,42 @@
 # Bottable.Io
 
+### Apps
+
+##### Extension
+- Web Extension 
+##### Web
+- NextJS 
+##### Server
+- Graphql server
+
+##### Task
+Background worker listens to `task` queue
+Run I/O blocking tasks: 
+ - Sync: run scheduled task to sync the db with scraper queues
+   - TODO queue sync should be applicable to task queues as well
+ - Slack: notify via slack => `api-wrapper-util-slack`
+ - Email: notfiy via email => `api-wrapper-util-mail`
+ - Ping: aliveness
+
+##### Scraper
+- Received Scraper job from `scraper` queue
+- Upon triggering the scraper job, it will launch puppeteer to fetch those values on the page (it will try up to 10 times to wait for the elements to appear on page)
+- Push result to `processor` queue if successful
+
+##### Processor
+- Recieve, process, and store value from from `processor` queue
+
+##### Subscriber
+- Subscribe to queue events (failed, completed..etc) and trigger corresponding handler
+Handlers:
+  - Scraper: TODO notify Slack on failure
+
+##### Monitor (Admin)
+- Monitor queue job and status
+- TODO add Prisma and graphql playground
+
+
+
 This project was generated using [Nx](https://nx.dev).
 
 <p align="center"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
