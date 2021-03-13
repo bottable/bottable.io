@@ -2,14 +2,14 @@
 
 ### Apps
 
-##### Extension
+### Extension
 - Web Extension 
-##### Web
+### Web
 - NextJS 
-##### Server
+### Server
 - Graphql server
 
-##### Task
+### Task
 Background worker listens to `task` queue
 Run I/O blocking tasks: 
  - Sync: run scheduled task to sync the db with scraper queues
@@ -18,20 +18,20 @@ Run I/O blocking tasks:
  - Email: notfiy via email => `api-wrapper-util-mail`
  - Ping: aliveness
 
-##### Scraper
+### Scraper
 - Received Scraper job from `scraper` queue
 - Upon triggering the scraper job, it will launch puppeteer to fetch those values on the page (it will try up to 10 times to wait for the elements to appear on page)
 - Push result to `processor` queue if successful
 
-##### Processor
+### Processor
 - Recieve, process, and store value from from `processor` queue
 
-##### Subscriber
+### Subscriber
 - Subscribe to queue events (failed, completed..etc) and trigger corresponding handler
 Handlers:
   - Scraper: TODO notify Slack on failure
 
-##### Monitor (Admin)
+### Monitor (Admin)
 - Monitor queue job and status
 - TODO add Prisma and graphql playground
 
