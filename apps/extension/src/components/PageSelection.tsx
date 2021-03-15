@@ -2,8 +2,9 @@ import { SelectionCard } from './SelectionCard';
 import { EmptyBox } from './EmptyBox';
 
 import { useOuterApp } from '../utils/useOuterApp';
+import { TrackerContext } from '../context';
 
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useContext } from 'react';
 import styled from 'styled-components';
 import { Paragraph } from 'fiber-ui';
 
@@ -29,42 +30,33 @@ const EmptyBoxWrapper = styled.div`
   place-items: center;
 `;
 
-type Selection = {
-  id: string;
-  preview: string;
-  path: string;
-};
-
 export const PageSelection: FC = () => {
   const { setSelectorListener } = useOuterApp();
-  const [selections, setSelections] = useState<Selection[]>([]);
+
+  const { selectors, addSelector, removeSelector } = useContext(TrackerContext);
 
   useEffect(() => {
     setSelectorListener({
       select: (e, path) => {
-        console.log(e, path);
-        setSelections([
-          ...selections,
-          {
-            id: selections.length + '123',
-            preview: e.innerText,
-            path,
-          },
-        ]);
+        addSelector({
+          id: selectors.length + '123',
+          preview: e.innerText,
+          location: path,
+          values: [{ timestamp: new Date(), value: e.innerText }],
+          category: 'Category',
+          alertTrigger: { type: 'CHANGE' },
+        });
       },
     });
-  }, [setSelectorListener, selections, setSelections]);
+  }, [setSelectorListener, selectors, addSelector]);
 
   const handleDelete = (id: string) => {
-    setSelections((prevSelections) => {
-      const newSelections = prevSelections.filter((s) => s.id !== id);
-      return newSelections;
-    });
+    removeSelector(id);
   };
 
   return (
     <PageSelectionWrapper>
-      {selections.length === 0 ? (
+      {selectors.length === 0 ? (
         <EmptySelectionWrapper>
           <EmptyBoxWrapper>
             <EmptyBox />
@@ -89,9 +81,9 @@ export const PageSelection: FC = () => {
           </Paragraph>
         </EmptySelectionWrapper>
       ) : (
-        selections.map(({ id, preview }, idx) => (
+        selectors.map(({ id, preview }, idx) => (
           <div
-            style={{ margin: idx !== selections.length - 1 ? 20 : 0 }}
+            style={{ margin: idx !== selectors.length - 1 ? 20 : 0 }}
             key={id}
           >
             <SelectionCard id={id} preview={preview} onDelete={handleDelete} />

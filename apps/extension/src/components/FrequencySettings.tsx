@@ -1,6 +1,8 @@
 import { InputWrapper } from './InputWrapper';
 
-import React, { useState } from 'react';
+import { TrackerContext } from '../context';
+
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import { Checkbox, Paragraph, Radio, Text, Slider, Card } from 'fiber-ui';
 import { MdInfo } from 'react-icons/md';
@@ -51,18 +53,22 @@ const frequencyModes = {
 type FrequencyMode = 'hourly' | 'daily' | 'weekly';
 
 export const FrequencySettings = () => {
+  const { notifyAnyway, setUpdateFrequency, setNotifyAnyway } = useContext(
+    TrackerContext
+  );
+
   const [frequencyMode, setFrequencyMode] = useState<FrequencyMode>('hourly');
   const [frequency, setFrequency] = useState(1);
-  const [notifyAnyways, setNotifyAnyways] = useState(false);
 
   const frequencyModeData = frequencyModes[frequencyMode];
 
-  const handleFreqSlide = (newValue: number | number[]) => {
-    setFrequency(newValue as number);
+  const handleFreqSlide = (newValue: number) => {
+    setFrequency(newValue);
+    setUpdateFrequency(newValue.toString());
   };
 
   const handleNotifyCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setNotifyAnyways(event.target.checked);
+    setNotifyAnyway(event.target.checked);
   };
 
   return (
@@ -82,8 +88,10 @@ export const FrequencySettings = () => {
           defaultValue="hourly"
           onChange={(e: any) => {
             const freqMode = e.target.value.toLowerCase() as FrequencyMode;
+            const newFreq = frequencyModes[freqMode].min;
             setFrequencyMode(freqMode);
             setFrequency(frequencyModes[freqMode].min);
+            setUpdateFrequency(newFreq.toString());
           }}
           buttonStyle="solid"
         >
@@ -114,7 +122,7 @@ export const FrequencySettings = () => {
       <NotifyAnywayWrapper>
         <Checkbox
           style={{ fontSize: 11 }}
-          checked={notifyAnyways}
+          checked={notifyAnyway}
           onChange={handleNotifyCheck}
         >
           Notify me even if the condition isn&#x27;t met

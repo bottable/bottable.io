@@ -4,8 +4,9 @@ import { StepContent } from './StepContent';
 
 import { getChromeValues, setChromeValue } from '../utils';
 import * as config from '../config';
+import { TrackerContext } from '../context';
 
-import React, { ChangeEvent, FC, useEffect, useState } from 'react';
+import React, { ChangeEvent, FC, useEffect, useContext } from 'react';
 import { Steps, Input, Paragraph } from 'fiber-ui';
 
 const { Step } = Steps;
@@ -15,7 +16,7 @@ type MetadataProps = {
 };
 
 export const MetadataStep: FC<MetadataProps> = ({ handleNext, ...props }) => {
-  const [name, setName] = useState('');
+  const { name, setName, setTags } = useContext(TrackerContext);
 
   useEffect(() => {
     const syncChrome = async () => {
@@ -58,7 +59,7 @@ export const MetadataStep: FC<MetadataProps> = ({ handleNext, ...props }) => {
           <Input.Tag
             placeholder="Add Tags"
             onChange={(values: any) => {
-              console.log(values);
+              setTags(values);
             }}
             bordered={false}
             style={{ width: '100%' }}

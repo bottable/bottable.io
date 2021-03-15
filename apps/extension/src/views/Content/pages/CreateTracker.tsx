@@ -5,6 +5,7 @@ import {
   FinishStep,
   PreviewSaveStep,
 } from '../../../components';
+import { TrackerContextProvider } from '../../../context';
 
 import React from 'react';
 import styled from 'styled-components';
@@ -45,12 +46,14 @@ export const CreateTracker = () => {
     <CreateTrackerWrapper>
       <TopNav onSelectorClick={() => set(1)} />
       <ContentWrapper>
-        <Steps current={activeStep} vertical onChange={onChange}>
-          <MetadataStep handleNext={handleNext} />
-          <SelectorStep handlePrev={handlePrev} handleNext={handleNext} />
-          <FinishStep handlePrev={handlePrev} handleNext={handleNext} />
-          <PreviewSaveStep handlePrev={handlePrev} />
-        </Steps>
+        <TrackerContextProvider>
+          <Steps current={activeStep} vertical onChange={onChange}>
+            <MetadataStep handleNext={handleNext} />
+            <SelectorStep handlePrev={handlePrev} handleNext={handleNext} />
+            <FinishStep handlePrev={handlePrev} handleNext={handleNext} />
+            <PreviewSaveStep handlePrev={handlePrev} />
+          </Steps>
+        </TrackerContextProvider>
       </ContentWrapper>
     </CreateTrackerWrapper>
   );

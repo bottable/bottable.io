@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import { TrackerContext, NotificationMethods } from '../context';
+
+import React, { useContext } from 'react';
 import { Menu, Dropdown, Button, Paragraph, Card } from 'fiber-ui';
 import { MdClear, MdExpandMore } from 'react-icons/md';
 import styled from 'styled-components';
@@ -28,39 +30,47 @@ const NotifMethodText = styled(Paragraph)`
   margin-bottom: 0px;
 `;
 
-export const NotifyMethods = () => {
-  const [notifMethods, setNotifMethods] = useState<string[]>([]);
+const notifMethodDict = {
+  AUDIO: 'Audio Notification',
+  POPUP: 'Popup Notification',
+  EMAIL: 'User Email',
+};
 
-  const handleNotifSelect = (value: string) => {
-    if (!notifMethods.includes(value))
-      setNotifMethods([...notifMethods, value]);
+export const NotifyMethods = () => {
+  const { notificationMethods, setNotificationMethods } = useContext(
+    TrackerContext
+  );
+
+  const handleNotifSelect = (value: NotificationMethods) => {
+    if (!notificationMethods.includes(value))
+      setNotificationMethods([...notificationMethods, value]);
   };
 
   const handleDelete = (index: number) => {
-    const tempNotifMethods = [...notifMethods];
+    const tempNotifMethods = [...notificationMethods];
     tempNotifMethods.splice(index, 1);
-    setNotifMethods(tempNotifMethods);
+    setNotificationMethods(tempNotifMethods);
   };
 
   const menu = (
     <Menu>
       <Menu.Item
         onClick={() => {
-          handleNotifSelect('Audio Notification');
+          handleNotifSelect('AUDIO');
         }}
       >
         Audio Notification
       </Menu.Item>
       <Menu.Item
         onClick={() => {
-          handleNotifSelect('Popup Notification');
+          handleNotifSelect('POPUP');
         }}
       >
         Popup Notification
       </Menu.Item>
       <Menu.Item
         onClick={() => {
-          handleNotifSelect('User Email');
+          handleNotifSelect('EMAIL');
         }}
       >
         User Email
@@ -92,7 +102,7 @@ export const NotifyMethods = () => {
         Add Action
       </Dropdown.Button>
       <NotifMethodsWrapper>
-        {notifMethods.map((method, i) => (
+        {notificationMethods.map((method, i) => (
           <NotifMethodWrapper key={method + i}>
             <Button
               onClick={() => handleDelete(i)}
@@ -101,7 +111,7 @@ export const NotifyMethods = () => {
               icon={<MdClear />}
               style={{ marginRight: 10 }}
             />
-            <NotifMethodText>{method}</NotifMethodText>
+            <NotifMethodText>{notifMethodDict[method]}</NotifMethodText>
           </NotifMethodWrapper>
         ))}
       </NotifMethodsWrapper>
