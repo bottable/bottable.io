@@ -3,7 +3,7 @@ import { EmptyBox } from './EmptyBox';
 
 import { useOuterApp } from '../utils/useOuterApp';
 
-import React, { FC, useCallback, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Paragraph } from 'fiber-ui';
 
@@ -16,18 +16,17 @@ const PageSelectionWrapper = styled.div`
 
 const EmptySelectionWrapper = styled.div`
   display: flex;
-  padding-top: 16px;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  padding-top: 16px;
 `;
 
 const EmptyBoxWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  place-items: center;
-  padding-top: 20px;
   padding-top: 10px;
+  place-items: center;
 `;
 
 type Selection = {
@@ -56,13 +55,12 @@ export const PageSelection: FC = () => {
     });
   }, [setSelectorListener, selections, setSelections]);
 
-  const handleDelete = useCallback(
-    (id) => {
-      const index = selections.findIndex((s) => (s.id = id));
-      setSelections([...selections].splice(index, 1));
-    },
-    [selections, setSelections]
-  );
+  const handleDelete = (id: string) => {
+    setSelections((prevSelections) => {
+      const newSelections = prevSelections.filter((s) => s.id !== id);
+      return newSelections;
+    });
+  };
 
   return (
     <PageSelectionWrapper>
@@ -82,7 +80,7 @@ export const PageSelection: FC = () => {
           </EmptyBoxWrapper>
           <Paragraph
             style={{
-              color: '#333333',
+              color: '#333',
               textAlign: 'center',
               fontSize: 12,
             }}
@@ -92,13 +90,11 @@ export const PageSelection: FC = () => {
         </EmptySelectionWrapper>
       ) : (
         selections.map(({ id, preview }, idx) => (
-          <div style={{ margin: idx !== selections.length - 1 ? 20 : 0 }}>
-            <SelectionCard
-              id={id}
-              key={id}
-              preview={preview}
-              onDelete={handleDelete}
-            />
+          <div
+            style={{ margin: idx !== selections.length - 1 ? 20 : 0 }}
+            key={id}
+          >
+            <SelectionCard id={id} preview={preview} onDelete={handleDelete} />
           </div>
         ))
       )}

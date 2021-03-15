@@ -1,5 +1,6 @@
 import { PrevNextButtons } from './PrevNextButtons';
 import { StepContent } from './StepContent';
+import { PreviewSelection } from './PreviewSelection';
 
 import React, { FC } from 'react';
 import { Steps } from 'fiber-ui';
@@ -17,7 +18,7 @@ export const PreviewSaveStep: FC<PreviewSaveProps> = ({
   return (
     <Step {...props} title="Preview and Save">
       <StepContent>
-        <p>TO BE DONE</p>
+        <PreviewSelection />
         <PrevNextButtons handlePrev={handlePrev} />
       </StepContent>
     </Step>

@@ -37,11 +37,12 @@ export const CategoryInput: FC<TagsInputProps> = ({
 
     if (result.length === 0) result.push(category);
 
-    const menuItemsNode = result.map((suggestion) => (
+    const menuItemsNode = result.map((suggestion, idx) => (
       <Menu.Item
         onClick={() => {
           setCategory(suggestion);
         }}
+        key={idx}
       >
         <div style={{ display: 'flex', alignItems: 'center' }}>
           {suggestion === category &&

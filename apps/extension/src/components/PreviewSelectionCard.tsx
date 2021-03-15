@@ -8,13 +8,13 @@ import { Paragraph } from 'fiber-ui';
 
 type AlertTrigger = 'has changed' | 'has increased' | 'has decreased';
 
-type SelectionCardProps = {
+type PreviewSelectionCardProps = {
   id: string;
   preview: string;
   onDelete: (id: string) => void;
 };
 
-export const SelectionCard: FC<SelectionCardProps> = ({
+export const PreviewSelectionCard: FC<PreviewSelectionCardProps> = ({
   id,
   preview,
   onDelete,
