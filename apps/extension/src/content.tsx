@@ -82,6 +82,9 @@ const StyledFrame = styled(Frame)`
   border: none;
 `;
 
+const app = document.createElement('div');
+app.id = config.EXTENSION_ROOT_ID;
+
 const Main: FC<MainProps> = ({ toggle }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isPinned, setIsPinned] = useState(false);
@@ -107,7 +110,7 @@ const Main: FC<MainProps> = ({ toggle }) => {
   useEffect(() => {
     setChromeValue({ [config.CHROME.keys.isPinned]: isPinned });
 
-    if (isPinned) {
+    if (isPinned && app.style.display !== 'none') {
       document.body.style.marginLeft = config.EXTENSION_WIDTH;
     } else {
       document.body.style.marginLeft = '0px';
@@ -163,9 +166,6 @@ const Main: FC<MainProps> = ({ toggle }) => {
     </StyleSheetManager>
   );
 };
-
-const app = document.createElement('div');
-app.id = config.EXTENSION_ROOT_ID;
 
 function toggle() {
   if (app.style.display === 'none') {
