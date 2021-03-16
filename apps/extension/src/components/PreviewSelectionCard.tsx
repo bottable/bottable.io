@@ -1,12 +1,11 @@
 import { TextPreview } from './TextPreview';
-import { CategoryInput } from './CategoryInput';
 
-import React, { FC, useState } from 'react';
+import { TrackerContext } from '../context';
+
+import React, { FC, useContext, useState } from 'react';
 import { Collapse, Menu, Dropdown } from 'fiber-ui';
-import { MdDelete, MdExpandMore } from 'react-icons/md';
-import { Paragraph } from 'fiber-ui';
-
-type AlertTrigger = 'has changed' | 'has increased' | 'has decreased';
+import { MdDelete, MdExpandMore, MdInfo } from 'react-icons/md';
+import { Paragraph, Text } from 'fiber-ui';
 
 type PreviewSelectionCardProps = {
   id: string;
@@ -14,40 +13,44 @@ type PreviewSelectionCardProps = {
   onDelete: (id: string) => void;
 };
 
+const alertTriggerDict = {
+  CHANGE: 'has changed',
+  INCREASE: 'has increased',
+  DECREASE: 'has decreased',
+  GREATER_THAN: 'greater than',
+  LESS_THAN: 'less than',
+  CONTAIN: 'contains',
+};
+
 export const PreviewSelectionCard: FC<PreviewSelectionCardProps> = ({
   id,
   preview,
   onDelete,
 }) => {
-  const [category, setCategory] = useState<string>('Category');
-  const [alertTrigger, setAlertTrigger] = useState<AlertTrigger>('has changed');
+  const { selectors, editSelector } = useContext(TrackerContext);
+  const [showPreview, setShowPreview] = useState<boolean>(false);
 
-  const handleAlertTriggerSelect = (
-    event: React.ChangeEvent<{ value: unknown }>
-  ) => {
-    const value = event.target.value as AlertTrigger;
-    setAlertTrigger(value);
-  };
+  const { category, alertTrigger } = selectors.find((s) => s.id === id);
 
   const alertTriggerMenu = (
     <Menu>
       <Menu.Item
         onClick={() => {
-          setAlertTrigger('has changed');
+          editSelector(id, { alertTrigger: { type: 'CHANGE' } });
         }}
       >
         has changed
       </Menu.Item>
       <Menu.Item
         onClick={() => {
-          setAlertTrigger('has increased');
+          editSelector(id, { alertTrigger: { type: 'INCREASE' } });
         }}
       >
         has increased
       </Menu.Item>
       <Menu.Item
         onClick={() => {
-          setAlertTrigger('has decreased');
+          editSelector(id, { alertTrigger: { type: 'DECREASE' } });
         }}
       >
         has decreased
@@ -58,7 +61,11 @@ export const PreviewSelectionCard: FC<PreviewSelectionCardProps> = ({
   return (
     <Collapse style={{ width: 260, backgroundColor: '#fff' }}>
       <Collapse.Panel
-        header={<CategoryInput category={category} setCategory={setCategory} />}
+        header={
+          <Text style={{ fontWeight: 600, fontSize: 14, color: '#4f4f4f' }}>
+            {category}
+          </Text>
+        }
         extra={
           <MdDelete
             onClick={() => {
@@ -68,14 +75,24 @@ export const PreviewSelectionCard: FC<PreviewSelectionCardProps> = ({
           />
         }
         key="1"
-        headerStyle={{ position: 'static' }}
       >
         <Paragraph style={{ fontSize: 12, margin: '8px 0' }}>
           Notify me when the selected value
+          <MdInfo
+            style={{
+              color: 'black',
+              width: 12,
+              height: 12,
+              verticalAlign: 'top',
+              cursor: 'pointer',
+            }}
+            onClick={() => {
+              setShowPreview((prevShowPreview) => !prevShowPreview);
+            }}
+          />
         </Paragraph>
-        <TextPreview>{preview}</TextPreview>
+        {showPreview ? <TextPreview>{preview}</TextPreview> : null}
         <Dropdown.Button
-          onChange={handleAlertTriggerSelect}
           style={{ width: '100%', position: 'static', fontSize: 14 }}
           dropdownStyle={{ top: 'auto' }}
           overlay={alertTriggerMenu}
@@ -84,7 +101,7 @@ export const PreviewSelectionCard: FC<PreviewSelectionCardProps> = ({
             endIcon: <MdExpandMore />,
           }}
         >
-          {alertTrigger}
+          {alertTriggerDict[alertTrigger.type]}
         </Dropdown.Button>
       </Collapse.Panel>
     </Collapse>

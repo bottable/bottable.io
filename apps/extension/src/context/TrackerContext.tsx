@@ -52,7 +52,7 @@ type TrackerContextProps = {
     update: { alertTrigger?: AlertTrigger; category?: string }
   ) => void;
   setNotificationMethods: (notificationMethods: NotificationMethods[]) => void;
-  setUpdateFrequency: (updateFrequency: string) => void;
+  setUpdateFrequency: (freq: number, mode: string) => void;
   setNotifyAnyway: (notifyAnyway: boolean) => void;
 };
 
@@ -71,7 +71,9 @@ const TrackerContextProvider = ({
   const [notificationMethods, setNotificationMethods] = useState<
     NotificationMethods[]
   >([]);
-  const [updateFrequency, setUpdateFrequency] = useState<string>('');
+  const [updateFrequency, setUpdateFrequencyState] = useState<string>(
+    '0 */1 * * *'
+  );
   const [notifyAnyway, setNotifyAnyway] = useState<boolean>(false);
 
   const addSelector = (selector: Selector) =>
@@ -91,6 +93,20 @@ const TrackerContextProvider = ({
 
       return newSelectors;
     });
+
+  const setUpdateFrequency = (freq: number, mode: string) => {
+    switch (mode) {
+      case 'hourly':
+        setUpdateFrequencyState(`0 */${freq} * * *`);
+        break;
+      case 'daily':
+        setUpdateFrequencyState(`0 0 */${freq} * *`);
+        break;
+      case 'weekly':
+        setUpdateFrequencyState(`0 0 */${freq * 7} * *`);
+        break;
+    }
+  };
 
   return (
     <TrackerContext.Provider

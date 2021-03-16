@@ -83,7 +83,7 @@ export const PageSelection: FC = () => {
       ) : (
         selectors.map(({ id, preview }, idx) => (
           <div
-            style={{ margin: idx !== selectors.length - 1 ? 20 : 0 }}
+            style={{ marginBottom: idx !== selectors.length - 1 ? 20 : 0 }}
             key={id}
           >
             <SelectionCard id={id} preview={preview} onDelete={handleDelete} />

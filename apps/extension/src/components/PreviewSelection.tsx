@@ -1,6 +1,8 @@
 import { PreviewSelectionCard } from './PreviewSelectionCard';
 
-import React, { FC, useState } from 'react';
+import { TrackerContext } from '../context';
+
+import React, { FC, useContext } from 'react';
 import styled from 'styled-components';
 
 const PreviewSelectionWrapper = styled.div`
@@ -10,31 +12,21 @@ const PreviewSelectionWrapper = styled.div`
   justify-content: flex-start;
 `;
 
-type Selection = {
-  id: string;
-  preview: string;
-  path: string;
-};
-
 export const PreviewSelection: FC = () => {
-  const [selections, setSelections] = useState<Selection[]>([]);
+  const { selectors, removeSelector } = useContext(TrackerContext);
+
+  console.log(selectors);
 
   const handleDelete = (id: string) => {
-    setSelections((prevSelections) => {
-      const newSelections = prevSelections.filter((s) => s.id !== id);
-      return newSelections;
-    });
+    removeSelector(id);
   };
 
   return (
     <PreviewSelectionWrapper>
-      {selections.length === 0
+      {selectors.length === 0
         ? null
-        : selections.map(({ id, preview }, idx) => (
-            <div
-              style={{ margin: idx !== selections.length - 1 ? 20 : 0 }}
-              key={id}
-            >
+        : selectors.map(({ id, preview }) => (
+            <div style={{ marginBottom: 20 }} key={id}>
               <PreviewSelectionCard
                 id={id}
                 preview={preview}

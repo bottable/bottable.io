@@ -64,7 +64,7 @@ export const FrequencySettings = () => {
 
   const handleFreqSlide = (newValue: number) => {
     setFrequency(newValue);
-    setUpdateFrequency(newValue.toString());
+    setUpdateFrequency(newValue, frequencyMode);
   };
 
   const handleNotifyCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -90,8 +90,8 @@ export const FrequencySettings = () => {
             const freqMode = e.target.value.toLowerCase() as FrequencyMode;
             const newFreq = frequencyModes[freqMode].min;
             setFrequencyMode(freqMode);
-            setFrequency(frequencyModes[freqMode].min);
-            setUpdateFrequency(newFreq.toString());
+            setFrequency(newFreq);
+            setUpdateFrequency(newFreq, freqMode);
           }}
           buttonStyle="solid"
         >
