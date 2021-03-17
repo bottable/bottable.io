@@ -112,7 +112,7 @@ const Main: FC<MainProps> = ({ toggle }) => {
 
     if (isPinned && app.style.display !== 'none') {
       document.body.style.marginLeft = config.EXTENSION_WIDTH;
-    } else {
+    } else if (app.style.display !== 'none') {
       document.body.style.marginLeft = '0px';
     }
   }, [isPinned]);
