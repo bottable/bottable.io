@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, Heading, Text, Input, Button, Checkbox } from 'fiber-ui';
+import Link from 'next/link';
 
 const Login = () => {
   return (
@@ -25,12 +26,11 @@ const Login = () => {
       <div style={{ marginBottom: 62 }}>
         <Text style={{ fontSize: 14 }}>
           Need a Bottable account?{' '}
-          <a
-            href="/register"
-            style={{ color: '#1e67dc', textDecoration: 'none' }}
-          >
-            Create an account
-          </a>
+          <Link href="/register">
+            <a style={{ color: '#1e67dc', textDecoration: 'none' }}>
+              Create an account
+            </a>
+          </Link>
         </Text>
       </div>
       <Text>Email</Text>
@@ -47,13 +47,15 @@ const Login = () => {
       </div>
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <Text>
-          <a href="/" style={{ color: '#1e67dc', marginRight: 21 }}>
-            Forgot username?
-          </a>
+          <Link href="/">
+            <a style={{ color: '#1e67dc', marginRight: 21 }}>
+              Forgot username?
+            </a>
+          </Link>
           •
-          <a href="/" style={{ color: '#1e67dc', marginLeft: 21 }}>
-            Forgot password?
-          </a>
+          <Link href="/">
+            <a style={{ color: '#1e67dc', marginLeft: 21 }}>Forgot password?</a>
+          </Link>
         </Text>
       </div>
     </Card>

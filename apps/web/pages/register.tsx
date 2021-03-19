@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, Heading, Text, Input, Button } from 'fiber-ui';
+import Link from 'next/link';
 
 const Register = () => {
   return (
@@ -25,9 +26,9 @@ const Register = () => {
       <div style={{ marginBottom: 62 }}>
         <Text style={{ fontSize: 14 }}>
           Track everything with ease. Already have an account?{' '}
-          <a href="/login" style={{ color: '#1e67dc', textDecoration: 'none' }}>
-            Log in
-          </a>
+          <Link href="/login">
+            <a style={{ color: '#1e67dc', textDecoration: 'none' }}>Log in</a>
+          </Link>
         </Text>
       </div>
       <Text>First Name</Text>
