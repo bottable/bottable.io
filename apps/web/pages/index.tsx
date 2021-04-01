@@ -92,11 +92,7 @@ export const Index = (me) => {
   );
 };
 
-Index.getInitialProps = async ({ req, res }) => {
-  if (!req || !res) {
-    return {};
-  }
-
+export const getServerSideProps = async ({ req, res }) => {
   if (req.headers.cookie) {
     const { token } = cookie.parse(req.headers.cookie);
 
@@ -111,13 +107,15 @@ Index.getInitialProps = async ({ req, res }) => {
       },
     });
 
-    if (me) return me;
+    if (me) return { props: me };
   }
 
   res.writeHead(301, {
     Location: `http://${req.headers.host}/login`,
   });
   res.end();
+
+  return { props: {} };
 };
 
 export default Index;
