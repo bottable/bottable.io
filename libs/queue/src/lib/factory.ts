@@ -1,6 +1,12 @@
 import { Queue } from './queue';
 
-import { SCRAPER, TASK, RESULT, COMPLETED, STALLED, FAILED } from '../types';
+import {
+  COMPLETED,
+  STALLED,
+  FAILED,
+  QueueEventsType,
+  BottableQueueType,
+} from '../types';
 
 import { PrismaClient } from '@prisma/client';
 
@@ -10,44 +16,137 @@ import {
   WorkerOptions,
   QueueEvents,
   QueueScheduler,
+  JobsOptions,
 } from 'bullmq';
 import { options } from '@bottable.io/data-access/util-redis';
+import {
+  ScraperJobRequestData,
+  ScraperJobResponseValue,
+} from '@bottable.io/data-access/util-prisma';
 const { QUEUE } = process.env;
+
+export type ScraperJobResponseData = {
+  opts: JobsOptions;
+  scraperRequest: ScraperJobRequestData;
+  scraperValues: ScraperJobResponseValue[];
+};
 
 export type QueueListnerEvent = {
   jobId: string;
-  data: string;
+  data: ScraperJobResponseData | string;
   failedReason?: string;
   returnvalue?: string;
   prev?: string;
 };
 
-export class QueueFactory {
+export type QueueSubscriberEventHandler = (
+  id: string,
+  type: QueueEventsType,
+  data?: QueueListnerEvent
+) => void;
+
+export type QueueEventSubscriber = (
+  handler: QueueSubscriberEventHandler
+) => void;
+
+type Queues = {
+  [key in BottableQueueType]: QueueWrapper;
+};
+
+interface QueueFeatures {
+  producer: Queue;
+  worker: Worker;
+  event: QueueEvents;
+  scheduler: QueueScheduler;
+}
+export class QueueWrapper implements QueueFeatures {
   prisma: PrismaClient;
 
-  scraper: Queue = null;
-  scraperWorker: Worker = null;
-  scraperQueueEvents: QueueEvents = null;
-  scraperQueueScheduler: QueueScheduler;
+  // queue features
+  producer: Queue = null;
+  worker: Worker = null;
+  event: QueueEvents = null;
+  scheduler: QueueScheduler = null;
 
-  task: Queue = null;
-  taskWorker: Worker = null;
-  taskQueueEvents: QueueEvents = null;
-  taskQueueScheduler: QueueScheduler = null;
+  // queue name
+  name = 'default';
 
-  result: Queue = null;
-  resultWorker: Worker = null;
-  resultQueueEvents: QueueEvents = null;
-  resultQueueScheduler: QueueScheduler = null;
-
-  test: Queue = null;
-  customQueues: { [key: string]: Queue } = {};
-
-  constructor() {
-    this.prisma = new PrismaClient();
+  constructor(type: BottableQueueType, prisma: PrismaClient) {
+    this.prisma = prisma;
+    this.name = `${type}-${QUEUE}`;
   }
 
-  private createQueue = (name: string) => {
+  getProducer = () => {
+    if (this.producer == null) this.producer = this.createQueue(this.name);
+
+    if (this.scheduler == null) this.scheduler = new QueueScheduler(this.name);
+
+    return this.producer;
+  };
+
+  setWorker = (handler: Processor, opt?: WorkerOptions) => {
+    if (this.worker == null) this.worker = new Worker(this.name, handler, opt);
+
+    return this.worker;
+  };
+
+  subWorker: (handler: QueueSubscriberEventHandler) => void = (handler) => {
+    if (this.event == null) this.event = new QueueEvents(this.name);
+
+    this.registerQueueEvents(this.event, handler);
+  };
+
+  shutdown = async () => {
+    const { producer, scheduler, event, worker } = this;
+    if (producer) await producer.close();
+    if (scheduler) await scheduler.close();
+    if (event) await event.close();
+    if (worker) await worker.close();
+  };
+
+  /**
+   *
+   * @param queueEvent
+   * @param handler
+   * @returns void
+   */
+  private registerQueueEvents = (
+    queueEvent: QueueEvents,
+    handler: QueueSubscriberEventHandler
+  ) => {
+    queueEvent.on(COMPLETED, (listnerEvent: QueueListnerEvent, id) => {
+      if (listnerEvent.returnvalue) {
+        try {
+          listnerEvent.data = JSON.parse(listnerEvent.returnvalue);
+        } catch (e) {
+          listnerEvent.data = listnerEvent.returnvalue;
+        }
+      }
+      handler(id, COMPLETED, listnerEvent);
+    });
+
+    queueEvent.on(STALLED, (listnerEvent: QueueListnerEvent, id) => {
+      handler(id, STALLED, listnerEvent);
+    });
+
+    queueEvent.on(FAILED, (listnerEvent: QueueListnerEvent, id) => {
+      if (listnerEvent.failedReason) {
+        try {
+          listnerEvent.data = JSON.parse(listnerEvent.failedReason);
+        } catch (e) {
+          listnerEvent.data = listnerEvent.failedReason;
+        }
+      }
+      handler(id, FAILED, listnerEvent);
+    });
+  };
+
+  /**
+   *
+   * @param name
+   * @returns Queue
+   */
+  private createQueue = (name: string): Queue => {
     return new Queue(
       name,
       {
@@ -65,154 +164,41 @@ export class QueueFactory {
       this.prisma
     );
   };
+}
+export class QueueFactory {
+  prisma: PrismaClient;
 
-  getScraperProduer = () => {
-    if (this.scraper == null)
-      this.scraper = this.createQueue(`${SCRAPER}-${QUEUE}`);
-
-    if (this.scraperQueueScheduler == null)
-      this.scraperQueueScheduler = new QueueScheduler(`${SCRAPER}-${QUEUE}`);
-
-    return this.scraper;
+  queues: Queues = {
+    scraper: null,
+    processor: null,
+    task: null,
   };
 
-  setScraperWorker = (handler: Processor, opt?: WorkerOptions) => {
-    if (this.scraperWorker == null)
-      this.scraperWorker = new Worker(`${SCRAPER}-${QUEUE}`, handler, opt);
-    return this.scraperWorker;
-  };
+  constructor() {
+    this.prisma = new PrismaClient();
+  }
 
-  subScraperWorker = (
-    callback: (id: string, type: string, data?: QueueListnerEvent) => void
-  ) => {
-    if (this.scraperQueueEvents == null) {
-      this.scraperQueueEvents = new QueueEvents(`${SCRAPER}-${QUEUE}`);
+  getQueue = (type: BottableQueueType) => {
+    if (!(type in this.queues)) {
+      throw new Error(`type ${type} is not defined in BottableQueueType`);
     }
 
-    this.registerQueueEvents(this.scraperQueueEvents, callback);
-  };
+    if (this.queues[type] == null)
+      this.queues[type] = new QueueWrapper(type, this.prisma);
 
-  getTaskProduer = () => {
-    if (this.task == null) this.task = this.createQueue(`${TASK}-${QUEUE}`);
-
-    if (this.taskQueueScheduler == null)
-      this.taskQueueScheduler = new QueueScheduler(`${TASK}-${QUEUE}`);
-
-    return this.task;
-  };
-
-  setTaskWorker = (handler: Processor, opt?: WorkerOptions) => {
-    if (this.taskWorker == null)
-      this.taskWorker = new Worker(`${TASK}-${QUEUE}`, handler, opt);
-    return this.taskWorker;
-  };
-
-  registerQueueEvents = (
-    queueEvent: QueueEvents,
-    callback: (id: string, type: string, data?: QueueListnerEvent) => void
-  ) => {
-    queueEvent.on(COMPLETED, (listnerEvent: QueueListnerEvent, id) => {
-      if (listnerEvent.returnvalue) {
-        try {
-          listnerEvent.data = JSON.parse(listnerEvent.returnvalue);
-        } catch (e) {
-          listnerEvent.data = listnerEvent.returnvalue;
-        }
-      }
-      callback(id, COMPLETED, listnerEvent);
-    });
-
-    queueEvent.on(STALLED, (listnerEvent: QueueListnerEvent, id) => {
-      callback(id, STALLED, listnerEvent);
-    });
-
-    queueEvent.on(FAILED, (listnerEvent: QueueListnerEvent, id) => {
-      if (listnerEvent.failedReason) {
-        try {
-          listnerEvent.data = JSON.parse(listnerEvent.failedReason);
-        } catch (e) {
-          listnerEvent.data = listnerEvent.failedReason;
-        }
-      }
-      callback(id, FAILED, listnerEvent);
-    });
-  };
-
-  subTaskWorker = (
-    callback: (id: string, type: string, data?: QueueListnerEvent) => void
-  ) => {
-    if (this.taskQueueEvents == null) {
-      this.taskQueueEvents = new QueueEvents(`${TASK}-${QUEUE}`);
-    }
-
-    this.registerQueueEvents(this.taskQueueEvents, callback);
-  };
-
-  getTestQueue = (prefix: string) => {
-    return this.createQueue(`${prefix}-${QUEUE}`);
-  };
-
-  getQueueByName = (prefix: string) => {
-    if (this.customQueues[prefix] == null)
-      this.customQueues[prefix] = this.createQueue(`${prefix}-${QUEUE}`);
-
-    return this.customQueues[prefix];
-  };
-
-  getResultProduer = () => {
-    if (this.result == null) this.result = this.createQueue(`${TASK}-${QUEUE}`);
-
-    if (this.resultQueueScheduler == null)
-      this.resultQueueScheduler = new QueueScheduler(`${RESULT}-${QUEUE}`);
-
-    return this.result;
-  };
-
-  setResultWorker = (handler: Processor, opt?: WorkerOptions) => {
-    if (this.resultWorker == null)
-      this.resultWorker = new Worker(`${RESULT}-${QUEUE}`, handler, opt);
-    return this.resultWorker;
-  };
-
-  subResultWorker = (
-    callback: (id: string, type: string, data?: QueueListnerEvent) => void
-  ) => {
-    if (this.resultQueueEvents == null) {
-      this.resultQueueEvents = new QueueEvents(`${RESULT}-${QUEUE}`);
-    }
-
-    this.registerQueueEvents(this.resultQueueEvents, callback);
+    return this.queues[type];
   };
 
   shutdown = async () => {
     console.log('Factory shutting down queues and db connection...');
 
-    const {
-      scraper,
-      scraperWorker,
-      scraperQueueScheduler,
-      task,
-      taskWorker,
-      taskQueueScheduler,
-      test,
-      customQueues,
-    } = this;
+    const { queues, prisma } = this;
 
-    if (scraper) await scraper.close();
-    if (scraperWorker) await scraperWorker.close();
-    if (scraperQueueScheduler) await scraperQueueScheduler.close();
+    for (const type in queues) {
+      await queues[type].shutdown();
+    }
 
-    if (task) await task.close();
-    if (taskWorker) await taskWorker.close();
-    if (taskQueueScheduler) await taskQueueScheduler.close();
-
-    if (test) await test.close();
-
-    Object.values(customQueues).forEach((cq) => {
-      if (cq) cq.close();
-    });
-
-    this.prisma.$disconnect();
+    await prisma.$disconnect();
 
     console.log('Factory shut down complete!');
   };

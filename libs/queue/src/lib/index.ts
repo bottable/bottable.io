@@ -1,1 +1,2 @@
-export { QueueFactory } from './factory';
+export * from './factory';
+export { Queue } from './queue';

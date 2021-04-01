@@ -6,7 +6,7 @@ import { PrismaClient } from '@prisma/client';
 import {
   TrackerWithSelector,
   TaskData,
-  ScraperData,
+  ScraperJobRequestData,
   getTrackerKey,
 } from '@bottable.io/data-access/util-prisma';
 
@@ -22,7 +22,7 @@ type ReapeatableJob = {
 
 type ReapeatableJobOptions = {
   name: string;
-  data: ScraperData | TaskData;
+  data: ScraperJobRequestData | TaskData;
   opts?: JobsOptions;
 };
 

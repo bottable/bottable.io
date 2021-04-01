@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { QueueFactory } from '@bottable.io/queue';
+import { PROCESSOR, QueueFactory, SCRAPER, TASK } from '@bottable.io/queue';
 
 import { setQueues, BullMQAdapter, router } from 'bull-board';
 
@@ -10,8 +10,15 @@ const factory = new QueueFactory();
 
 // FIXME: wait for bullmq types to update
 setQueues([
-  new BullMQAdapter(factory.getScraperProduer(), { readOnlyMode: false }),
-  new BullMQAdapter(factory.getTaskProduer(), { readOnlyMode: false }),
+  new BullMQAdapter(factory.getQueue(SCRAPER).getProducer(), {
+    readOnlyMode: false,
+  }),
+  new BullMQAdapter(factory.getQueue(TASK).getProducer(), {
+    readOnlyMode: false,
+  }),
+  new BullMQAdapter(factory.getQueue(PROCESSOR).getProducer(), {
+    readOnlyMode: false,
+  }),
 ]);
 
 app.use('/admin/queues', router);
