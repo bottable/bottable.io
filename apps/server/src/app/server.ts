@@ -5,6 +5,7 @@ import { getRedis } from '@bottable.io/data-access/util-redis';
 import session from 'express-session';
 import connectRedis from 'connect-redis';
 import { GraphQLServer } from 'graphql-yoga';
+import cors from 'cors';
 
 // import { permissions } from './permissions/index';
 
@@ -32,6 +33,13 @@ const server = new GraphQLServer({
   context: createContext,
   resolvers,
 });
+
+server.express.use(
+  cors({
+    origin: true,
+    credentials: true,
+  })
+);
 
 server.express.use(sessionMiddleware);
 

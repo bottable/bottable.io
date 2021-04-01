@@ -1,8 +1,72 @@
+import { LOGIN_MUTATION } from '../graphql/mutations';
+import { setCookie } from '../utils';
+
 import React from 'react';
-import { Card, Heading, Text, Input, Button, Checkbox } from 'fiber-ui';
+import {
+  Card,
+  Heading,
+  Text,
+  Input,
+  Button,
+  Checkbox,
+  notification,
+} from 'fiber-ui';
 import Link from 'next/link';
+import { useApolloClient, useMutation } from '@apollo/client';
+import { useRouter } from 'next/router';
+import { Formik } from 'formik';
 
 const Login = () => {
+  const client = useApolloClient();
+  const router = useRouter();
+
+  const [login, { loading }] = useMutation(LOGIN_MUTATION, {
+    onError() {
+      notification.open({
+        message: 'Server Error',
+        description:
+          'There is a problem with the server currently. Please come back later.',
+      });
+    },
+  });
+
+  const initialValues = { email: '', password: '' };
+
+  const validate = (values: { [key: string]: string }) => {
+    const errors: { email?: string; password?: string } = {};
+    if (!values.email) {
+      errors.email = 'Required';
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+      errors.email = 'Invalid email address';
+    }
+
+    if (!values.password) {
+      errors.password = 'Required';
+    }
+    return errors;
+  };
+
+  const onSubmit = async (data, { setSubmitting }) => {
+    console.log(data);
+    const loginResults = await login({
+      variables: data,
+    });
+
+    setSubmitting(false);
+
+    if (loginResults) {
+      const {
+        data: {
+          login: { token },
+        },
+      } = loginResults;
+
+      setCookie(token);
+      // await client.cache.reset();
+      router.push('/');
+    }
+  };
+
   return (
     <Card
       bordered={false}
@@ -33,27 +97,68 @@ const Login = () => {
           </Link>
         </Text>
       </div>
-      <Text>Email</Text>
-      <Input style={{ width: '100%', marginBottom: 32 }} />
-      <Text>Password</Text>
-      <Input.Password style={{ width: '100%', marginBottom: 32 }} />
-      <Button type="primary" block style={{ marginBottom: 26 }}>
-        Log In
-      </Button>
-      <div
-        style={{ marginBottom: 26, display: 'flex', justifyContent: 'center' }}
+      <Formik
+        initialValues={initialValues}
+        validate={validate}
+        onSubmit={onSubmit}
       >
-        <Checkbox>Keep me logged in</Checkbox>
-      </div>
+        {({
+          values,
+          errors,
+          touched,
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          isSubmitting,
+          /* and other goodies */
+        }) => (
+          <form onSubmit={handleSubmit}>
+            <Text>Email</Text>
+            <Input
+              style={{ width: '100%', marginBottom: 32 }}
+              name="email"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.email}
+            />
+            <Text>Password</Text>
+            <Input.Password
+              style={{ width: '100%', marginBottom: 32 }}
+              name="password"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.password}
+            />
+            <Button
+              type="primary"
+              htmlType="submit"
+              block
+              style={{ marginBottom: 26 }}
+              disabled={isSubmitting}
+            >
+              Log In
+            </Button>
+            <div
+              style={{
+                marginBottom: 26,
+                display: 'flex',
+                justifyContent: 'center',
+              }}
+            >
+              <Checkbox name="checked">Keep me logged in</Checkbox>
+            </div>
+          </form>
+        )}
+      </Formik>
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <Text>
-          <Link href="/">
+          <Link href="/login">
             <a style={{ color: '#1e67dc', marginRight: 21 }}>
               Forgot username?
             </a>
           </Link>
           •
-          <Link href="/">
+          <Link href="/login">
             <a style={{ color: '#1e67dc', marginLeft: 21 }}>Forgot password?</a>
           </Link>
         </Text>
