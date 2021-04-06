@@ -12,15 +12,14 @@ import {
   notification,
 } from 'fiber-ui';
 import Link from 'next/link';
-import { useApolloClient, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { useRouter } from 'next/router';
 import { Formik } from 'formik';
 
 const Login = () => {
-  const client = useApolloClient();
   const router = useRouter();
 
-  const [login, { loading }] = useMutation(LOGIN_MUTATION, {
+  const [login] = useMutation(LOGIN_MUTATION, {
     onError() {
       notification.open({
         message: 'Server Error',

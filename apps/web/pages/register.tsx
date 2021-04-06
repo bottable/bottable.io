@@ -1,8 +1,84 @@
+import { REGISTER_MUTATION } from '../graphql/mutations';
+import { setCookie } from '../utils';
+
 import React from 'react';
-import { Card, Heading, Text, Input, Button } from 'fiber-ui';
+import { Card, Heading, Text, Input, Button, notification } from 'fiber-ui';
 import Link from 'next/link';
+import { useMutation } from '@apollo/client';
+import { useRouter } from 'next/router';
+import { Formik } from 'formik';
 
 const Register = () => {
+  const router = useRouter();
+
+  const [register] = useMutation(REGISTER_MUTATION, {
+    onError() {
+      notification.open({
+        message: 'Server Error',
+        description:
+          'There is a problem with the server currently. Please come back later.',
+      });
+    },
+  });
+
+  const initialValues = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+  };
+
+  const validate = (values: { [key: string]: string }) => {
+    const errors: {
+      firstName?: string;
+      lastName?: string;
+      email?: string;
+      password?: string;
+    } = {};
+
+    if (!values.firstName) {
+      errors.firstName = 'Required';
+    }
+
+    if (!values.lastName) {
+      errors.lastName = 'Required';
+    }
+
+    if (!values.email) {
+      errors.email = 'Required';
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+      errors.email = 'Invalid email address';
+    }
+
+    if (!values.password) {
+      errors.password = 'Required';
+    }
+    return errors;
+  };
+
+  const onSubmit = async (data, { setSubmitting }) => {
+    console.log(data);
+    const registerResult = await register({
+      variables: data,
+    });
+
+    setSubmitting(false);
+
+    if (registerResult) {
+      const {
+        data: {
+          register: { token },
+        },
+      } = registerResult;
+
+      console.log(token);
+
+      setCookie(token);
+      // await client.cache.reset();
+      router.push('/');
+    }
+  };
+
   return (
     <Card
       bordered={false}
@@ -31,15 +107,60 @@ const Register = () => {
           </Link>
         </Text>
       </div>
-      <Text>First Name</Text>
-      <Input style={{ width: '100%', marginBottom: 32 }} />
-      <Text>Last Name</Text>
-      <Input style={{ width: '100%', marginBottom: 32 }} />
-      <Text>Email</Text>
-      <Input style={{ width: '100%', marginBottom: 32 }} />
-      <Text>Password</Text>
-      <Input.Password style={{ width: '100%', marginBottom: 32 }} />
-      <Button type="primary">Sign Up</Button>
+      <Formik
+        initialValues={initialValues}
+        validate={validate}
+        onSubmit={onSubmit}
+      >
+        {({
+          values,
+          errors,
+          touched,
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          isSubmitting,
+          /* and other goodies */
+        }) => (
+          <form onSubmit={handleSubmit}>
+            <Text>First Name</Text>
+            <Input
+              style={{ width: '100%', marginBottom: 32 }}
+              name="firstName"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.firstName}
+            />
+            <Text>Last Name</Text>
+            <Input
+              style={{ width: '100%', marginBottom: 32 }}
+              name="lastName"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.lastName}
+            />
+            <Text>Email</Text>
+            <Input
+              style={{ width: '100%', marginBottom: 32 }}
+              name="email"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.email}
+            />
+            <Text>Password</Text>
+            <Input.Password
+              style={{ width: '100%', marginBottom: 32 }}
+              name="password"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.password}
+            />
+            <Button type="primary" htmlType="submit" disabled={isSubmitting}>
+              Sign Up
+            </Button>
+          </form>
+        )}
+      </Formik>
       <div style={{ marginTop: 32 }}>
         <Text style={{ fontSize: 12, fontWeight: 300 }}>
           By clicking the "Sign Up" button, you are creating a Bottable account,
