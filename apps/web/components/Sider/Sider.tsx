@@ -1,9 +1,13 @@
+import { signout } from '../../utils';
+
 import React, { FC } from 'react';
 import { Space, Button, Text } from 'fiber-ui';
 import { HiDesktopComputer } from 'react-icons/hi';
 import { MdPerson } from 'react-icons/md';
 import { AiFillPlusCircle } from 'react-icons/ai';
+import { BiLogOut } from 'react-icons/bi';
 import styled from 'styled-components';
+import { useRouter } from 'next/router';
 
 const Container = styled.div`
   width: 150px;
@@ -33,6 +37,8 @@ type SiderProps = {
 };
 
 const Sider: FC<SiderProps> = ({ name }) => {
+  const router = useRouter();
+
   return (
     <Container>
       <Space>
@@ -58,6 +64,15 @@ const Sider: FC<SiderProps> = ({ name }) => {
       </StyledButton>
       <StyledButton type="text" startIcon={<MdPerson />}>
         Personal
+      </StyledButton>
+      <StyledButton
+        type="text"
+        startIcon={<BiLogOut />}
+        onClick={() => {
+          router.push('/api/logout');
+        }}
+      >
+        Logout
       </StyledButton>
       <BottomContainer style={{ transform: 'translate(0, -50%)' }}>
         <img src={'icon.png'} style={{ height: 35, width: 35 }} alt="Logo" />

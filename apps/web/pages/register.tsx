@@ -61,8 +61,6 @@ const Register = () => {
       variables: data,
     });
 
-    setSubmitting(false);
-
     if (registerResult) {
       const {
         data: {
@@ -71,7 +69,7 @@ const Register = () => {
       } = registerResult;
 
       setCookie(token);
-      // await client.cache.reset();
+      setSubmitting(false);
       router.push('/');
     }
   };

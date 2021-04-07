@@ -50,8 +50,6 @@ const Login = () => {
       variables: data,
     });
 
-    setSubmitting(false);
-
     if (loginResults) {
       const {
         data: {
@@ -60,7 +58,7 @@ const Login = () => {
       } = loginResults;
 
       setCookie(token);
-      // await client.cache.reset();
+      setSubmitting(false);
       router.push('/');
     }
   };

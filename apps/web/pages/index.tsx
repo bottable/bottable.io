@@ -93,6 +93,7 @@ export const Index = (me) => {
 };
 
 export const getServerSideProps = async ({ req, res }) => {
+  console.log(req, res);
   if (req.headers.cookie) {
     const { token } = cookie.parse(req.headers.cookie);
 
@@ -111,7 +112,7 @@ export const getServerSideProps = async ({ req, res }) => {
   }
 
   res.writeHead(301, {
-    Location: `http://${req.headers.host}/login`,
+    Location: '/login',
   });
   res.end();
 
