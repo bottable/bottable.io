@@ -57,7 +57,6 @@ const Register = () => {
   };
 
   const onSubmit = async (data, { setSubmitting }) => {
-    console.log(data);
     const registerResult = await register({
       variables: data,
     });
@@ -70,8 +69,6 @@ const Register = () => {
           register: { token },
         },
       } = registerResult;
-
-      console.log(token);
 
       setCookie(token);
       // await client.cache.reset();

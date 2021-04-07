@@ -13,14 +13,14 @@ export const Index = (me) => {
   return (
     <Layout>
       <Layout.Sider>
-        <Sider />
+        <Sider name={`${me.firstName} ${me.lastName}`} />
       </Layout.Sider>
       <Layout style={{ flex: '1 0 0px', width: 0 }}>
         <Layout.Content
           style={{ background: '#f7f7f7', padding: '30px 70px 90px 70px' }}
         >
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <Heading style={{ margin: 0 }}>Hello Kevin,</Heading>
+            <Heading style={{ margin: 0 }}>Hello {me.firstName},</Heading>
             <Button
               type="primary"
               style={{ marginLeft: 'auto', backgroundColor: '#333' }}

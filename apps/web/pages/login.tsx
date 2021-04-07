@@ -46,7 +46,6 @@ const Login = () => {
   };
 
   const onSubmit = async (data, { setSubmitting }) => {
-    console.log(data);
     const loginResults = await login({
       variables: data,
     });
