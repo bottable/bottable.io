@@ -5,6 +5,25 @@ export const ME_QUERY = gql`
     me {
       firstName
       lastName
+      trackers {
+        selectors {
+          values {
+            timestamp
+            value
+          }
+        }
+        notificationMethods
+        tags {
+          name
+          color
+        }
+        description
+        name
+        notifyAnyway
+        pinned
+        updateFrequency
+        url
+      }
     }
   }
 `;

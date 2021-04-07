@@ -20,11 +20,10 @@ const Login = () => {
   const router = useRouter();
 
   const [login] = useMutation(LOGIN_MUTATION, {
-    onError() {
+    onError(error) {
       notification.open({
-        message: 'Server Error',
-        description:
-          'There is a problem with the server currently. Please come back later.',
+        message: 'Error',
+        description: error.message,
       });
     },
   });

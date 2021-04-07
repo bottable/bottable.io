@@ -12,11 +12,10 @@ const Register = () => {
   const router = useRouter();
 
   const [register] = useMutation(REGISTER_MUTATION, {
-    onError() {
+    onError(error) {
       notification.open({
-        message: 'Server Error',
-        description:
-          'There is a problem with the server currently. Please come back later.',
+        message: 'Error',
+        description: error.message,
       });
     },
   });
