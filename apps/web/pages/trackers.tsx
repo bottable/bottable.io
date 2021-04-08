@@ -6,6 +6,16 @@ import React, { FC } from 'react';
 import { Layout, Table, Heading, Text, Tag } from 'fiber-ui';
 
 const Trackers: FC<User> = ({ firstName, lastName, trackers }) => {
+  const data = trackers.map(({ name, selectors, tags }, i) => {
+    const categories = selectors.map((_, i) => {
+      return `Category ${i}`;
+    });
+
+    const stringTags = tags.map(({ name }) => name);
+
+    return { key: i, trackerName: name, categories, tags: stringTags };
+  });
+
   return (
     <Layout style={{ height: '100%' }}>
       <Layout.Sider>
@@ -50,26 +60,7 @@ const Trackers: FC<User> = ({ firstName, lastName, trackers }) => {
                     ) : null,
                 },
               ]}
-              dataSource={[
-                {
-                  key: '1',
-                  trackerName: 'Tracker 1',
-                  categories: ['Category 1', 'Category 2', 'Category 3'],
-                  tags: ['Tag 1', 'Tag 2', 'Tag 3'],
-                },
-                {
-                  key: '2',
-                  trackerName: 'Tracker 2',
-                },
-                {
-                  key: '3',
-                  trackerName: 'Tracker 3',
-                },
-                {
-                  key: '4',
-                  trackerName: 'Tracker 4',
-                },
-              ]}
+              dataSource={data}
               pagination={{ hideOnSinglePage: true }}
             />
           </div>
