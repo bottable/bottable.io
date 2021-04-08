@@ -1,5 +1,4 @@
-import { ME_QUERY } from '../graphql/queries';
-import client from '../apollo-client';
+import { getAuth } from '../utils';
 import { CardStack, Sider, Footer, Section, Pinned } from '../components';
 import { User } from '../types';
 
@@ -7,9 +6,11 @@ import React, { FC } from 'react';
 import { Button, Heading, Layout, Text, Input } from 'fiber-ui';
 import { MdWhatshot } from 'react-icons/md';
 import { AiFillPushpin } from 'react-icons/ai';
-import cookie from 'cookie';
+import { useRouter } from 'next/router';
 
 export const Index: FC<User> = ({ firstName, lastName, trackers }) => {
+  const router = useRouter();
+
   const hot: {
     trackerName: string;
     categoryName: string;
@@ -51,6 +52,9 @@ export const Index: FC<User> = ({ firstName, lastName, trackers }) => {
             <Button
               type="primary"
               style={{ marginLeft: 'auto', backgroundColor: '#333' }}
+              onClick={() => {
+                router.push('/trackers');
+              }}
             >
               See All Trackers
             </Button>
@@ -91,31 +95,6 @@ export const Index: FC<User> = ({ firstName, lastName, trackers }) => {
   );
 };
 
-export const getServerSideProps = async ({ req, res }) => {
-  console.log(req, res);
-  if (req.headers.cookie) {
-    const { token } = cookie.parse(req.headers.cookie);
-
-    const {
-      data: { me },
-    } = await client.query({
-      query: ME_QUERY,
-      context: {
-        headers: {
-          authorization: token ? `Bearer ${token}` : '',
-        },
-      },
-    });
-
-    if (me) return { props: me };
-  }
-
-  res.writeHead(301, {
-    Location: '/login',
-  });
-  res.end();
-
-  return { props: {} };
-};
+export const getServerSideProps = getAuth;
 
 export default Index;

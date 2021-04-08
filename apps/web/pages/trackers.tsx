@@ -1,13 +1,15 @@
 import { Sider } from '../components';
+import { getAuth } from '../utils';
+import { User } from '../types';
 
-import React from 'react';
+import React, { FC } from 'react';
 import { Layout, Table, Heading, Text, Tag } from 'fiber-ui';
 
-const Trackers = () => {
+const Trackers: FC<User> = ({ firstName, lastName, trackers }) => {
   return (
     <Layout style={{ height: '100%' }}>
       <Layout.Sider>
-        <Sider />
+        <Sider name={`${firstName} ${lastName}`} />
       </Layout.Sider>
       <Layout style={{ flex: '1 0 0px', width: 0 }}>
         <Layout.Content
@@ -76,5 +78,7 @@ const Trackers = () => {
     </Layout>
   );
 };
+
+export const getServerSideProps = getAuth;
 
 export default Trackers;

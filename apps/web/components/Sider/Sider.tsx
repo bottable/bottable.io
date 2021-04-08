@@ -1,5 +1,3 @@
-import { signout } from '../../utils';
-
 import React, { FC } from 'react';
 import { Space, Button, Text } from 'fiber-ui';
 import { HiDesktopComputer } from 'react-icons/hi';
@@ -59,7 +57,13 @@ const Sider: FC<SiderProps> = ({ name }) => {
       >
         Add Tracker
       </Button>
-      <StyledButton type="text" startIcon={<HiDesktopComputer />}>
+      <StyledButton
+        type="text"
+        startIcon={<HiDesktopComputer />}
+        onClick={() => {
+          router.push('/');
+        }}
+      >
         Dashboard
       </StyledButton>
       <StyledButton type="text" startIcon={<MdPerson />}>
