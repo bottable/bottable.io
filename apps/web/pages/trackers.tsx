@@ -10,6 +10,7 @@ const Trackers: FC<User> = ({ firstName, lastName, trackers }) => {
   const router = useRouter();
 
   const data = trackers.map(({ id, name, selectors, tags }, i) => {
+    //Temp: Add name to selectors
     const categories = selectors.map((_, j) => {
       return `Category ${j}`;
     });

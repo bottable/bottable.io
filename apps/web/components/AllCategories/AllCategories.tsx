@@ -1,22 +1,11 @@
 import { CardStack } from '../CardStack';
+import { Selector } from '../../types';
 
 import React, { FC } from 'react';
 import { Input } from 'fiber-ui';
 
 type AllCategoriesProps = {
-  data: {
-    categoryName: string;
-    pinned: boolean;
-    value: string;
-    type: 'number' | 'string';
-    notify:
-      | 'changes'
-      | 'contains'
-      | 'is equal to'
-      | 'is greater than'
-      | 'is less than';
-    payload?: string;
-  }[];
+  data: Selector[];
 };
 
 const AllCategories: FC<AllCategoriesProps> = ({ data }) => {

@@ -1,15 +1,16 @@
 import { CardStackContainer } from './styles';
 
+import { Selector } from '../../types';
+
 import React, { FC, useState, useRef, useEffect } from 'react';
 import { Card, Text, Tooltip, Dropdown, Menu, Input } from 'fiber-ui';
 import { FaLongArrowAltDown } from 'react-icons/fa';
 import { MdInfo, MdExpandMore } from 'react-icons/md';
 import { FiExternalLink } from 'react-icons/fi';
-import { AiFillPushpin, AiOutlinePushpin } from 'react-icons/ai';
 
 type CardStackProps = {
   type: 'hot' | 'categories' | 'hot-tracker';
-  data: { [key: string]: string | number | boolean | undefined }[];
+  data: { [key: string]: any }[];
 };
 
 const formatMoney = (
@@ -43,6 +44,15 @@ const formatMoney = (
   } catch (e) {
     console.log(e);
   }
+};
+
+const notifyTypeDict = {
+  CHANGE: 'changes',
+  INCREASE: 'increases',
+  DECREASE: 'decreases',
+  GREATER_THAN: 'greater than',
+  LESS_THAN: 'less than',
+  CONTAIN: 'contains',
 };
 
 const CardStack: FC<CardStackProps> = ({ type, data }) => {
@@ -188,16 +198,27 @@ const CardStack: FC<CardStackProps> = ({ type, data }) => {
       break;
     case 'categories':
       cardsNode = data.map(
-        ({ categoryName, pinned, value, type, notify, payload }, idx) => {
+        (
+          {
+            id,
+            name,
+            type: selectorType,
+            values,
+            alertTrigger: { type: notifyType, payload },
+          }: Selector,
+          idx
+        ) => {
+          const value = values.length > 0 ? values[values.length - 1] : '';
+
           const menuArray =
-            type === 'number'
-              ? ['changes', 'is equal to', 'is greater than', 'is less than']
-              : ['changes', 'contains'];
+            selectorType === 'number'
+              ? ['CHANGE', 'INCREASE', 'DECREASE', 'GREATER_THAN', 'LESS_THAN']
+              : ['CHANGE', 'CONTAIN'];
 
           const menu = (
             <Menu>
               {menuArray.map((menuItem, idx) => (
-                <Menu.Item key={idx}>{menuItem}</Menu.Item>
+                <Menu.Item key={idx}>{notifyTypeDict[menuItem]}</Menu.Item>
               ))}
             </Menu>
           );
@@ -206,13 +227,8 @@ const CardStack: FC<CardStackProps> = ({ type, data }) => {
             <Card {...getDefaultProps(idx)}>
               <div style={{ display: 'flex', alignItems: 'center' }}>
                 <Text strong style={{ fontSize: 20 }}>
-                  {categoryName}
+                  {name}
                 </Text>
-                {pinned ? (
-                  <AiFillPushpin style={{ marginLeft: 'auto' }} />
-                ) : (
-                  <AiOutlinePushpin style={{ marginLeft: 'auto' }} />
-                )}
               </div>
               <div style={{ marginBottom: 12 }}>
                 <Text style={{ color: '#6b6b6b', fontSize: 14 }}>
@@ -229,6 +245,7 @@ const CardStack: FC<CardStackProps> = ({ type, data }) => {
                   whiteSpace: 'nowrap',
                   textOverflow: 'ellipsis',
                   borderRadius: 4,
+                  minHeight: 25,
                 }}
               >
                 <Text>{value}</Text>
@@ -243,7 +260,7 @@ const CardStack: FC<CardStackProps> = ({ type, data }) => {
                   style={{ width: '100%', position: 'static' }}
                   dropdownStyle={{ top: 'auto', marginLeft: -scroll }}
                 >
-                  {notify}
+                  {notifyTypeDict[notifyType]}
                 </Dropdown.Button>
               </div>
               {payload !== undefined ? (

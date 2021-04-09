@@ -4,7 +4,7 @@ export type User = {
   trackers: Tracker[];
 };
 
-type Tracker = {
+export type Tracker = {
   id: string;
   selectors: Selector[];
   notificationMethods: NotificationMethods[];
@@ -17,15 +17,30 @@ type Tracker = {
   url: string;
 };
 
-type Selector = {
+export type Selector = {
+  id: string;
+  name: string;
+  type: 'number' | 'string';
   values: Value[];
+  alertTrigger: AlertTrigger;
 };
 
-type Value = { timestamp: string; value: string };
+export type Value = { timestamp: string; value: string };
 
-type Tag = {
+export type AlertTrigger = {
+  type:
+    | 'CHANGE'
+    | 'INCREASE'
+    | 'DECREASE'
+    | 'GREATER_THAN'
+    | 'LESS_THAN'
+    | 'CONTAIN';
+  payload?: string;
+};
+
+export type Tag = {
   name: string;
   color: string;
 };
 
-type NotificationMethods = 'EMAIL' | 'SMS';
+export type NotificationMethods = 'EMAIL' | 'SMS';

@@ -6,13 +6,13 @@ import {
   AllCategories,
   Settings,
 } from '../../components';
-import { getAuth } from '../../utils';
-import { User } from '../../types';
+import { getAuth, getHot } from '../../utils';
+import { User, Selector } from '../../types';
 
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { Button, Heading, Layout, Table, Tag, Text } from 'fiber-ui';
 import { MdWhatshot, MdSettings, MdInsertChart } from 'react-icons/md';
-import { AiFillPushpin } from 'react-icons/ai';
+import { AiFillPushpin, AiOutlinePushpin } from 'react-icons/ai';
 import { FiExternalLink } from 'react-icons/fi';
 import { FaShapes } from 'react-icons/fa';
 import { useRouter } from 'next/router';
@@ -22,6 +22,18 @@ const Tracker: FC<User> = ({ firstName, lastName, trackers }) => {
   const { id } = router.query;
 
   const tracker = trackers.find((curTracker) => curTracker.id === id);
+
+  //Temp: Add type and name to selectors
+  const tempSelectors: Selector[] = tracker.selectors.map((selector, idx) => {
+    return { ...selector, name: `Category ${idx}`, type: 'string' };
+  });
+
+  const [pinned, setPinned] = useState<boolean>(tracker.pinned);
+  const [selectors, setSelectors] = useState<Selector[]>(tempSelectors);
+
+  const PushPinComponent = pinned ? AiFillPushpin : AiOutlinePushpin;
+
+  const hot = getHot([tracker]);
 
   return (
     <Layout>
@@ -38,7 +50,13 @@ const Tracker: FC<User> = ({ firstName, lastName, trackers }) => {
         >
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <Heading style={{ margin: 0 }}>{tracker.name}</Heading>
-            <AiFillPushpin size={40} style={{ marginLeft: 20 }} />
+            <PushPinComponent
+              size={40}
+              style={{ marginLeft: 20, cursor: 'pointer' }}
+              onClick={() => {
+                setPinned((prevVal) => !prevVal);
+              }}
+            />
             <Button
               type="primary"
               startIcon={<FiExternalLink />}
@@ -48,10 +66,11 @@ const Tracker: FC<User> = ({ firstName, lastName, trackers }) => {
             </Button>
           </div>
           <div style={{ margin: '10px 0 20px 0' }}>
-            <Tag>Tag 1</Tag>
-            <Tag>Tag 2</Tag>
-            <Tag>Tag 3</Tag>
-            <Tag>Tag 4</Tag>
+            {tracker.tags.map(({ name, color }, i) => (
+              <Tag key={i} color={color}>
+                {name}
+              </Tag>
+            ))}
           </div>
           <Section
             title="Hot"
@@ -59,17 +78,7 @@ const Tracker: FC<User> = ({ firstName, lastName, trackers }) => {
             icon={MdWhatshot}
           >
             <div>
-              <CardStack
-                type="hot-tracker"
-                data={[
-                  {
-                    trackerName: 'Amazon Nike React 4',
-                    categoryName: 'Price',
-                    prevValue: 5103,
-                    newValue: 4500,
-                  },
-                ]}
-              />
+              <CardStack type="hot-tracker" data={hot} />
             </div>
           </Section>
           <Section
@@ -77,49 +86,7 @@ const Tracker: FC<User> = ({ firstName, lastName, trackers }) => {
             description="Everything you want to track"
             icon={FaShapes}
           >
-            <AllCategories
-              data={[
-                {
-                  categoryName: 'Category 1',
-                  pinned: true,
-                  value: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam dapibus euismod sapien nec ultricies. Sed rutrum risus eget lobortis vehicula. Morbi vel ipsum elit. Nulla consequat massa ligula. Pellentesque vestibulum, metus eget fermentum eleifend, tellus sem sagittis arcu, vitae pulvinar mi felis in dui. Fusce id dapibus tellus, vitae dignissim dolor. Vestibulum euismod lacus sed tempor rutrum.`,
-                  type: 'string',
-                  notify: 'contains',
-                  payload: 'software engineer',
-                },
-                {
-                  categoryName: 'Category 2',
-                  pinned: false,
-                  value: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam dapibus euismod sapien nec ultricies. Sed rutrum risus eget lobortis vehicula. Morbi vel ipsum elit. Nulla consequat massa ligula. Pellentesque vestibulum, metus eget fermentum eleifend, tellus sem sagittis arcu, vitae pulvinar mi felis in dui. Fusce id dapibus tellus, vitae dignissim dolor. Vestibulum euismod lacus sed tempor rutrum.`,
-                  type: 'string',
-                  notify: 'changes',
-                },
-                {
-                  categoryName: 'Category 3',
-                  pinned: false,
-                  value: '98',
-                  type: 'number',
-                  notify: 'is greater than',
-                  payload: '150',
-                },
-                {
-                  categoryName: 'Category 4',
-                  pinned: false,
-                  value: '19.28',
-                  type: 'number',
-                  notify: 'is greater than',
-                  payload: '15.62',
-                },
-                {
-                  categoryName: 'Category 5',
-                  pinned: false,
-                  value: '98',
-                  type: 'number',
-                  notify: 'is greater than',
-                  payload: '150',
-                },
-              ]}
-            />
+            <AllCategories data={selectors} />
           </Section>
           <Section
             title="Settings"

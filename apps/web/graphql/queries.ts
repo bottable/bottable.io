@@ -8,9 +8,14 @@ export const ME_QUERY = gql`
       trackers {
         id
         selectors {
+          id
           values {
             timestamp
             value
+          }
+          alertTrigger {
+            type
+            payload
           }
         }
         notificationMethods
