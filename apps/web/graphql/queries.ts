@@ -6,6 +6,7 @@ export const ME_QUERY = gql`
       firstName
       lastName
       trackers {
+        id
         selectors {
           values {
             timestamp

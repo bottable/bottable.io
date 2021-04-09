@@ -4,16 +4,17 @@ import { User } from '../types';
 
 import React, { FC } from 'react';
 import { Layout, Table, Heading, Text, Tag } from 'fiber-ui';
+import { useRouter } from 'next/router';
 
 const Trackers: FC<User> = ({ firstName, lastName, trackers }) => {
-  const data = trackers.map(({ name, selectors, tags }, i) => {
-    const categories = selectors.map((_, i) => {
-      return `Category ${i}`;
+  const router = useRouter();
+
+  const data = trackers.map(({ id, name, selectors, tags }, i) => {
+    const categories = selectors.map((_, j) => {
+      return `Category ${j}`;
     });
 
-    const stringTags = tags.map(({ name }) => name);
-
-    return { key: i, trackerName: name, categories, tags: stringTags };
+    return { id, key: i, trackerName: name, categories, tags };
   });
 
   return (
@@ -53,8 +54,12 @@ const Trackers: FC<User> = ({ firstName, lastName, trackers }) => {
                   render: (tags) =>
                     tags ? (
                       <React.Fragment>
-                        {tags.map((tag) => {
-                          return <Tag key={tag}>{tag}</Tag>;
+                        {tags.map(({ name, color }, i) => {
+                          return (
+                            <Tag key={i} color={color}>
+                              {name}
+                            </Tag>
+                          );
                         })}
                       </React.Fragment>
                     ) : null,
@@ -62,6 +67,11 @@ const Trackers: FC<User> = ({ firstName, lastName, trackers }) => {
               ]}
               dataSource={data}
               pagination={{ hideOnSinglePage: true }}
+              hoverType="row"
+              onRowClick={({ id }) => {
+                router.push(`/tracker/${id}`);
+              }}
+              rowStyle={{ cursor: 'pointer' }}
             />
           </div>
         </Layout.Content>

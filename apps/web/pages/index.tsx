@@ -20,6 +20,8 @@ export const Index: FC<User> = ({ firstName, lastName, trackers }) => {
 
   trackers.forEach(({ name, selectors }) => {
     selectors.forEach(({ values }) => {
+      if (values.length < 2) return;
+
       const lastValue = values[values.length - 1];
       const lastValueDate = new Date(lastValue.timestamp);
       const diffDays =

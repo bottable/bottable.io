@@ -1,10 +1,9 @@
 import { ME_QUERY } from '../graphql/queries';
 import client from '../apollo-client';
 
-import cookie from 'cookie';
+import cookie, { serialize } from 'cookie';
 
 export const getAuth = async ({ req, res }) => {
-  console.log(req, res);
   if (req.headers.cookie) {
     const { token } = cookie.parse(req.headers.cookie);
 
@@ -20,6 +19,14 @@ export const getAuth = async ({ req, res }) => {
     });
 
     if (me) return { props: me };
+    else {
+      res.setHeader('Set-Cookie', [
+        serialize('token', '', {
+          maxAge: -1,
+          path: '/',
+        }),
+      ]);
+    }
   }
 
   res.writeHead(301, {

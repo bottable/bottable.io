@@ -3162,7 +3162,7 @@
   dependencies:
     "@types/lodash" "*"
 
-"@types/lodash@*":
+"@types/lodash@*", "@types/lodash@^4.14.165":
   version "4.14.168"
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.168.tgz#fe24632e79b7ade3f132891afff86caa5e5ce008"
   integrity sha512-oVfRvqHV/V6D1yifJbVRU3TMp8OT6o6BG+U9MkwuJ3U8/CsDHvalRpsxBqivn71ztOFZBTfJMvETbqHiaNSj7Q==
@@ -8309,9 +8309,9 @@ fd-slicer@~1.1.0:
     pend "~1.2.0"
 
 fiber-ui@^1.0.18:
-  version "1.0.20"
-  resolved "https://registry.yarnpkg.com/fiber-ui/-/fiber-ui-1.0.20.tgz#96e06bfbbc182b970e43af25906022bb123201a2"
-  integrity sha512-AHJv/j9uY6ADfJI21ryEug0BsTpAYtFv0J2auJjF/rXUMMkPB0XL3bRhd7a74YGAiebLHfMQuuIYH8RZWgu28A==
+  version "1.0.24"
+  resolved "https://registry.yarnpkg.com/fiber-ui/-/fiber-ui-1.0.24.tgz#155cf4f2106081a127a5721fe4c1b1f4a4494731"
+  integrity sha512-chixZ2W6wMs0uh4KaP6y8r4ATaGAil4/K/wyVGNqLvkKh7CnZXpEE8x4FWFn4XlpkUv/G3bLTyGs3vv1KFF4OA==
   dependencies:
     framer "^1.2.15"
     polished "^3.6.4"
@@ -8647,9 +8647,9 @@ framer-motion@^3.10.0:
     "@emotion/is-prop-valid" "^0.8.2"
 
 framer@^1.2.15:
-  version "1.2.26"
-  resolved "https://registry.yarnpkg.com/framer/-/framer-1.2.26.tgz#935bd0f1cceded17e7f49d7a72fa93bd7eca64dc"
-  integrity sha512-Ke4ECQ6O4G5rE4yz8VRFOjZni/fgOghJttakARC9kPD+ntGzDhT9+BSYl9DCVbGBdKDqS0ivH5EiVMzrBKHsXQ==
+  version "1.2.29"
+  resolved "https://registry.yarnpkg.com/framer/-/framer-1.2.29.tgz#ae718e5416613569eb1271d3aa0e9a9aa5e480f8"
+  integrity sha512-wiAo69KpjdxIQED9Oa6dBFjI6Icvi7EluR78IJLFxrklwDwpwB/EnYbPECr3TGERS0UllXAW5Tmxdd6r4RrjsQ==
 
 framesync@5.2.0:
   version "5.2.0"
@@ -14865,9 +14865,9 @@ raw-loader@3.1.0:
     schema-utils "^2.0.1"
 
 rc-util@^5.0.6:
-  version "5.8.1"
-  resolved "https://registry.yarnpkg.com/rc-util/-/rc-util-5.8.1.tgz#e3630abfb92b40becb31476cee136d65e80e02e0"
-  integrity sha512-kXV/QjL+azh3AxMk68gm8+nltVoL6bjeJJULAZLRCLus2Fhvo/aaMZokxYov/E0dbfjo31I78pF4yVljqQB7bA==
+  version "5.9.8"
+  resolved "https://registry.yarnpkg.com/rc-util/-/rc-util-5.9.8.tgz#dfcacc1f7b7c45fa18ab786e2b530dd0509073f1"
+  integrity sha512-typLSHYGf5irvGLYQshs0Ra3aze086h0FhzsAkyirMunYZ7b3Te8gKa5PVaanoHaZa9sS6qx98BxgysoRP+6Tw==
   dependencies:
     "@babel/runtime" "^7.12.5"
     react-is "^16.12.0"
@@ -14993,9 +14993,9 @@ react-refresh@0.8.3, react-refresh@^0.8.3:
   integrity sha512-X8jZHc7nCMjaCqoU+V2I0cOhNW+QMBwSUkeXnTi8IPe6zaRWfn60ZzvFDZqWPfmSJfjub7dDW1SP0jaHWLu/hg==
 
 react-resize-detector@^6.0.1-rc.3:
-  version "6.6.1"
-  resolved "https://registry.yarnpkg.com/react-resize-detector/-/react-resize-detector-6.6.1.tgz#2520f81e7121ad26b9ced604f5c7f787a7231a45"
-  integrity sha512-Fu/UzzQa2yu+psxqwjIOi6r/tWrcSo3WhuYhcEjPml7GgdwQiPGDmjBbr/k/GhBggrChQkuzXbonNLJj6cfeXA==
+  version "6.6.4"
+  resolved "https://registry.yarnpkg.com/react-resize-detector/-/react-resize-detector-6.6.4.tgz#704a6c985d666d119d833e908cc555b186cfea0c"
+  integrity sha512-sAAh8TmOp59MFs2HR7D1VGbAq+zL+2klQhFbkXOH5Gy/EBEyHGiWXWMStoB+axSYr/Xw54owg6QRGSFj3z0dew==
   dependencies:
     "@types/resize-observer-browser" "^0.1.5"
     lodash.debounce "^4.0.8"

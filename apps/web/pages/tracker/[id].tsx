@@ -5,20 +5,28 @@ import {
   Section,
   AllCategories,
   Settings,
-} from '../components';
+} from '../../components';
+import { getAuth } from '../../utils';
+import { User } from '../../types';
 
-import React from 'react';
+import React, { FC } from 'react';
 import { Button, Heading, Layout, Table, Tag, Text } from 'fiber-ui';
 import { MdWhatshot, MdSettings, MdInsertChart } from 'react-icons/md';
 import { AiFillPushpin } from 'react-icons/ai';
 import { FiExternalLink } from 'react-icons/fi';
 import { FaShapes } from 'react-icons/fa';
+import { useRouter } from 'next/router';
 
-const Tracker = () => {
+const Tracker: FC<User> = ({ firstName, lastName, trackers }) => {
+  const router = useRouter();
+  const { id } = router.query;
+
+  const tracker = trackers.find((curTracker) => curTracker.id === id);
+
   return (
     <Layout>
       <Layout.Sider>
-        <Sider />
+        <Sider name={`${firstName} ${lastName}`} />
       </Layout.Sider>
       <Layout style={{ flex: '1 0 0px', width: 0 }}>
         <Layout.Content
@@ -29,7 +37,7 @@ const Tracker = () => {
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <Heading style={{ margin: 0 }}>Amazon React 4</Heading>
+            <Heading style={{ margin: 0 }}>{tracker.name}</Heading>
             <AiFillPushpin size={40} style={{ marginLeft: 20 }} />
             <Button
               type="primary"
@@ -229,5 +237,7 @@ const Tracker = () => {
     </Layout>
   );
 };
+
+export const getServerSideProps = getAuth;
 
 export default Tracker;

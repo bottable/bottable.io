@@ -5,6 +5,7 @@ export type User = {
 };
 
 type Tracker = {
+  id: string;
   selectors: Selector[];
   notificationMethods: NotificationMethods[];
   tags: Tag[];
