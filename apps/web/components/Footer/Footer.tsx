@@ -1,5 +1,6 @@
 import React from 'react';
 import { Layout, Space, Text } from 'fiber-ui';
+import Image from 'next/image';
 
 const Footer = () => {
   return (
@@ -21,10 +22,12 @@ const Footer = () => {
         >
           <div style={{ marginBottom: 50 }}>
             <Space>
-              <img
-                src={'icon.png'}
-                style={{ height: 45, width: 45 }}
+              <Image
+                src="/icon.png"
                 alt="Logo"
+                height={45}
+                width={45}
+                layout="fixed"
               />
               <Text strong style={{ fontSize: 36 }}>
                 Bottable
