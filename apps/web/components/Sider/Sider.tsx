@@ -6,6 +6,7 @@ import { AiFillPlusCircle } from 'react-icons/ai';
 import { BiLogOut } from 'react-icons/bi';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 
 const Container = styled.div`
   width: 150px;
@@ -37,10 +38,14 @@ type SiderProps = {
 const Sider: FC<SiderProps> = ({ name }) => {
   const router = useRouter();
 
+  const logo = (
+    <Image src="/icon.png" alt="Logo" height={35} width={35} layout="fixed" />
+  );
+
   return (
     <Container>
       <Space>
-        <img src={'icon.png'} style={{ height: 35, width: 35 }} alt="Logo" />
+        {logo}
         <Text strong style={{ fontSize: 20 }}>
           Bottable
         </Text>
@@ -79,7 +84,7 @@ const Sider: FC<SiderProps> = ({ name }) => {
         Logout
       </StyledButton>
       <BottomContainer style={{ transform: 'translate(0, -50%)' }}>
-        <img src={'icon.png'} style={{ height: 35, width: 35 }} alt="Logo" />
+        {logo}
         <div>
           <div>
             <Text strong style={{ fontSize: 20 }}>
