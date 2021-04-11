@@ -55,8 +55,10 @@ model Selector {
   alertTriggerId Int
   alertTrigger   AlertTrigger @relation(fields: [alertTriggerId], references: [id])
 
+  name     String
   location String
   category SelectorCategoryType
+  type     SelectorType
 }
 
 model Value {
@@ -127,6 +129,11 @@ enum NotificationMethods {
 enum RoleType {
   ADMIN
   MEMBER
+}
+
+enum SelectorType {
+  STRING
+  NUMBER
 }
 
 enum SelectorCategoryType {
