@@ -91,7 +91,8 @@ export class Queue extends BullQueue {
         const scheduledJob = jobs.find(
           (job) => job.id === getTrackerKey(tracker)
         );
-        return scheduledJob && scheduledJob.cron === tracker.updateFrequency
+        return scheduledJob &&
+          scheduledJob.cron === tracker.updateFrequency.toString()
           ? null
           : // outdated scheduled job will be removed here
             this.scheduleTracker(tracker);
@@ -122,7 +123,7 @@ export class Queue extends BullQueue {
       opts: {
         jobId: getTrackerKey(tracker),
         repeat: {
-          every: parseInt(tracker.updateFrequency),
+          every: parseInt('' + tracker.updateFrequency),
         },
       },
     };
