@@ -22,4 +22,5 @@ type Mutation {
 
   # Tracker Mutations
   createTracker(input: CreateTrackerInput!): Tracker!
+  editTracker(input: EditTrackerInput!): Tracker!
 }

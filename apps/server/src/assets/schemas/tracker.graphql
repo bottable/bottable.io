@@ -18,7 +18,9 @@ type Selector {
   values: [Value!]!
   tracker: Tracker!
   alertTrigger: AlertTrigger!
+  name: String!
   location: String!
+  type: SelectorType!
 }
 
 type Value {
@@ -53,8 +55,10 @@ input AlertTriggerInput {
 }
 
 input SelectorInput {
+  name: String!
   category: SelectorCategoryType!
   alertTrigger: AlertTriggerInput!
+  type: SelectorType!
   location: String!
 }
 
@@ -70,6 +74,18 @@ input CreateTrackerInput {
   notificationMethods: [NotificationMethods!]!
 }
 
+input EditTrackerInput {
+  id: ID!
+  updateFrequency: String
+  description: String
+  url: String
+  name: String
+  notifyAnyway: Boolean
+  tags: [TagInput!]
+  selectors: [SelectorInput!]
+  notificationMethods: [NotificationMethods!]
+}
+
 enum AlertTriggerTypes {
   CHANGE
   INCREASE
@@ -82,6 +98,11 @@ enum AlertTriggerTypes {
 enum NotificationMethods {
   EMAIL
   SMS
+}
+
+enum SelectorType {
+  STRING
+  NUMBER
 }
 
 enum SelectorCategoryType {
