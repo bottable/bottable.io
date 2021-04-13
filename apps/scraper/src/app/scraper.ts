@@ -12,6 +12,8 @@ import {
   ScraperJobResponseData,
   PROCESSOR,
 } from '@bottable.io/queue';
+
+import fs from 'fs';
 // import { Selector } from '@prisma/client';
 
 const factory = new QueueFactory();
@@ -45,6 +47,24 @@ export const scraper: Processor = async (job) => {
       height: 1000,
       deviceScaleFactor: 1,
     });
+
+    const cookiesPath = 'cookies.txt';
+
+    // If the cookies file exists, read the cookies.
+    const previousSession = fs.existsSync(cookiesPath);
+    if (previousSession) {
+      const content = fs.readFileSync(cookiesPath);
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      const cookiesArr = JSON.parse(content);
+
+      if (cookiesArr.length !== 0) {
+        for (const cookie of cookiesArr) {
+          await page.setCookie(cookie);
+        }
+        console.log('[🦑 Scraper] Session has been loaded in the browser');
+      }
+    }
 
     await page.setUserAgent(
       'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36'
@@ -95,6 +115,11 @@ export const scraper: Processor = async (job) => {
 
     console.log(`[🦑 Scraper] Selected ${selectorValues.length} values `);
 
+    // TODO load cookies from the web extension
+    const cookiesObject = await page.cookies();
+    fs.writeFileSync(cookiesPath, JSON.stringify(cookiesObject));
+    console.log('Session has been saved to ' + cookiesPath);
+
     await browser.close();
 
     const scraperJobResponse: ScraperJobResponseData = {
@@ -104,8 +129,8 @@ export const scraper: Processor = async (job) => {
     };
 
     console.log(
-      `[🦑 Scraper] Sending results to processor queue `,
-      scraperJobResponse
+      `[🦑 Scraper] Sending results to processor queue `
+      // scraperJobResponse
     );
 
     await processorProducer.add(getTrackerKey(tracker), scraperJobResponse);
